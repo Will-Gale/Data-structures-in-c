@@ -23,19 +23,6 @@ typedef struct studentInfo
  Functions
  *******************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*****
  comparison function used for sorting elements into the tree, returns the following values for the comparison...
  
@@ -47,14 +34,9 @@ typedef struct studentInfo
 
 int compareName(Sinfo * compareOne, Sinfo * compareTwo);
 
-
-
-
-
-
-
-
-/*Allocates enough memory and fills the ADT variables*/
+/*****
+ Allocates enough memory and fills the ADT variables with the desired input information.
+ *****/
 Sinfo * createADT(const char * inputStudent);
 
 
