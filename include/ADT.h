@@ -20,7 +20,7 @@ typedef struct studentInfo
 /*Function prototypes are sorted by type, then sorted alphabetically*/
 
 /*******************************
- Functions
+ ADT Functions
  *******************************/
 
 /*****
@@ -32,71 +32,29 @@ typedef struct studentInfo
  compareOne = compareTwo returns = 0
  *****/
 
-int compareName(Sinfo * compareOne, Sinfo * compareTwo);
+int compareName(void * ptrOne, void * ptrTwo);
 
 /*****
- Allocates enough memory and fills the ADT variables with the desired input information.
+ Allocates enough memory and fills the ADT variables with the desired input information. Because this function allocates enough memory to store all required information, pointers can be used without any more memory allocation.
  *****/
-Sinfo * createADT(const char * inputStudent);
 
+Sinfo * createADT(const char * inputString);
 
-
-
-
-
-
-
-
-void destroyADT(Sinfo * elementToFree);
-
-
-
-
-
-
-
-
-
-void printStruct(Sinfo * elementToPrint);
-
-
-
-
-
-
-
-
-
-
-/*******************************
- Dereferencing Functions
+/*****
+ This function frees all the memory the ADT requires. Use this function to free memory before freeing any pointer to the ADT that has not yet been freed.
  
- These will be the functions that are passed as arguments to the other files
- *******************************/
+ Use a void pointer to that points to the data you would like to free.
+ *****/
 
-void destroyVoid(void * ptrToFree);
+void destroyADT(void * ptrToFree);
 
+/*****
+ This function simply prints the data stored in the ADT. In order for other functions to print the data, a print function that uses a void pointer is required.
+ *****/
 
-
-
-
-
-
-
-
-
-void printVoid(void * rInfoPtr);
+void printADT(void * printPtr);
 
 
 
-
-
-
-
-
-
-
-
-int voidCompareName(void * ptrOne, void * ptrTwo);
 
 

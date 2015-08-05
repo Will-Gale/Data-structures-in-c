@@ -15,6 +15,7 @@ int main(int argc, const char * argv[])
     char studentNameBuffer[50];
     FILE * inputFile;
     Sinfo * test;
+    void * vPtr;
     
     if (argv[1] == NULL)
     {
@@ -36,9 +37,11 @@ int main(int argc, const char * argv[])
     while (fgets(studentNameBuffer, 50, inputFile) != NULL)
     {
         test = createADT(studentNameBuffer);
+        vPtr = test;
         
-        printf("%s,", test->name);
-        printf("%s \n", test->studentNumber);
+        printADT(vPtr);
+        printf("\n");
+        destroyADT(vPtr);
     }
     
     

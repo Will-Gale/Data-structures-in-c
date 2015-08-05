@@ -8,19 +8,23 @@
 #include "ADT.h"
 
 /*******************************
- Functions
+ ADT Functions
  *******************************/
 
-/*comparison function used for sorting elements into the tree*/
-int compareName(Sinfo * compareOne, Sinfo * compareTwo)
+
+/*Nanme comparison using a void pointer*/
+int compareName(void * ptrOne, void * ptrTwo)
 {
     int nameComparison;
+    Sinfo * comparisonOne = (Sinfo *) ptrOne;
+    Sinfo * comparisonTwo = (Sinfo *) ptrTwo;
     
-    /*Sorting the students by last name*/
-    nameComparison = strcmp(compareOne->name, compareTwo->name);
+    /*Comparing the students by last name*/
+    nameComparison = strcmp(comparisonOne->name, comparisonTwo->name);
     
     return nameComparison;
 }
+
 
 /*Initializes an ADT that will be added to the tree */
 Sinfo * createADT(const char * inputString)
@@ -28,7 +32,7 @@ Sinfo * createADT(const char * inputString)
     char * cPtr;
     Sinfo * newStruct = malloc(sizeof(Sinfo));
     
-    /*allocates enough memory to store a string of the student name without the number and a string to store the student number*/
+    /*Allocates enough memory to store a string of the student name without the number and a string to store the student number*/
     newStruct->name = malloc(sizeof(char)*(strlen(inputString)-6));
     newStruct->studentNumber = malloc(sizeof(char)*7);
     
@@ -38,64 +42,37 @@ Sinfo * createADT(const char * inputString)
     cPtr = strtok(cPtr, ",");
     strcpy(newStruct->name, cPtr);
     
-    /*copies the rest of the string (student number) to the ADT student number*/
+    /*Copies the rest of the string (student number) to the ADT student number*/
     cPtr = strtok(NULL, ",");
     strcpy(newStruct->studentNumber, cPtr);
     
-    /*Getting rid of the new line ('\n') at the end of the string*/
+    /*Gets rid of the new line at the end of the string*/
     newStruct->studentNumber[strlen(newStruct->studentNumber)-1] = '\0';
     
     return newStruct;
 }
 
-/*frees allocated memory from the struct*/
-void destroyADT(Sinfo * elementToFree)
-{
-    /*frees allocated memory in the ADT*/
-    free(elementToFree->name);
-    free(elementToFree->studentNumber);
-}
 
-/*prints "lastName,studentNumber"*/
-void printADT(Sinfo * elementToPrint)
-{
-    /*print out the data stored in the Rinfo ADT elementToPrint*/
-    printf("%s,%s", elementToPrint->name, elementToPrint->studentNumber);
-}
-
-
-
-/*******
- Dereferencing Functions, these are the functions passed to the data structures
- *******/
-
-/*destroy from void pointer*/
-void destroyVoid(void * ptrToFree)
+/*frees the allocated memory in the ADT the void pointer points to*/
+void destroyADT(void * ptrToFree)
 {
     Sinfo * toDestroy = (Sinfo *) ptrToFree;
     
-    destroyADT(toDestroy);
+    /*frees allocated memory in the ADT*/
+    free(toDestroy->name);
+    free(toDestroy->studentNumber);
 }
+
 
 /*print the information from void pointers*/
-void printVoid(void * sInfoPtr)
+void printADT(void * printPtr)
 {
-    Sinfo * tempToPrint = (Sinfo *) sInfoPtr;
-    printADT(tempToPrint);
+    Sinfo * tempToPrint = (Sinfo *) printPtr;
+    
+    /*print out the data stored in the Rinfo ADT elementToPrint*/
+    printf("%s,%s", tempToPrint->name, tempToPrint->studentNumber);
 }
 
 
-/*Nanme comparison using a void pointer*/
-int voidCompareName(void * ptrOne, void * ptrTwo)
-{
-    int nameComparison;
-    Sinfo * comparisonOne = (Sinfo *) ptrOne;
-    Sinfo * comparisonTwo = (Sinfo *) ptrTwo;
-    
-    /*pass the ADTs to the compareName function*/
-    nameComparison = compareName(comparisonOne, comparisonTwo);
-    
-    return nameComparison;
-}
 
 
