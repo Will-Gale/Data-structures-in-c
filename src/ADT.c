@@ -23,29 +23,33 @@ int compareName(Sinfo * compareOne, Sinfo * compareTwo)
 }
 
 /*Initializes an ADT that will be added to the tree */
-Sinfo * createStruct(const char * inputString)
+Sinfo * createADT(const char * inputString)
 {
+    char * cPtr;
     Sinfo * newStruct = malloc(sizeof(Sinfo));
     
-    /*allocates enough memory to store a string of the student name without the number*/
+    /*allocates enough memory to store a string of the student name without the number and a string to store the student number*/
     newStruct->name = malloc(sizeof(char)*(strlen(inputString)-6));
-    
-    /*allocates enough memory to store a string of the student number*/
     newStruct->studentNumber = malloc(sizeof(char)*7);
     
     /*Parse the string before the comma to copy it to the ADT name*/
-    strtok(inputString, ',');
-    strcpy(newStruct->name, inputString);
+    cPtr = malloc(sizeof(char)*strlen(inputString)+1);
+    strcpy(cPtr, inputString);
+    cPtr = strtok(cPtr, ",");
+    strcpy(newStruct->name, cPtr);
     
     /*copies the rest of the string (student number) to the ADT student number*/
-    strtok(NULL, inputString);
-    strcpy(newStruct->studentNumber);
+    cPtr = strtok(NULL, ",");
+    strcpy(newStruct->studentNumber, cPtr);
+    
+    /*Getting rid of the new line ('\n') at the end of the string*/
+    newStruct->studentNumber[strlen(newStruct->studentNumber)-1] = '\0';
     
     return newStruct;
 }
 
 /*frees allocated memory from the struct*/
-void destroyADT(Rinfo * elementToFree)
+void destroyADT(Sinfo * elementToFree)
 {
     /*frees allocated memory in the ADT*/
     free(elementToFree->name);

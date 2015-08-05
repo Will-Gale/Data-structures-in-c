@@ -13,7 +13,7 @@
 typedef struct studentInfo
 {
     char * name;
-    char * studentNumber
+    char * studentNumber;
 }Sinfo;
 
 
@@ -54,8 +54,8 @@ int compareName(Sinfo * compareOne, Sinfo * compareTwo);
 
 
 
-
-Sinfo * createStruct(const char * inputStudent);
+/*Allocates enough memory and fills the ADT variables*/
+Sinfo * createADT(const char * inputStudent);
 
 
 
