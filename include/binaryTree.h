@@ -15,6 +15,7 @@ enum {false, true};
 /*************************************
  Required variables for Binary Tree
  *************************************/
+
 /*data type to create the Binary tree*/
 struct binaryTree
 {
@@ -44,7 +45,14 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
 
 /*destroyBinaryTree()*/
 
-/*void addToTree()*/
+/****************************************
+ Uses the compare function to add data to a binary tree from a void pointer.
+ 
+ This function traverses through the tree using recursion.
+ 
+ Example call: addToBinaryTree(&compareFunction, dataToAdd)
+ ****************************************/
+void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * root, void * dataToAdd);
 
 /*void removeFromTree()*/
 
@@ -61,6 +69,13 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
 /*void printPreOrder(Tree * theTree, void (* printNode) (void data))*/
 
 /*void printBinaryTree(Tree *)*/
+
+/****************************************
+ Checks to see if the node is empty.
+ 
+ Returns true if it is NULL, and returns false otherwise.
+ ****************************************/
+bool isNodeEmpty(BinNode * root);
 
 /*bool isTreeEmpty(Tree * theTree)*/
  
