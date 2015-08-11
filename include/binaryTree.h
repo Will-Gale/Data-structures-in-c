@@ -32,18 +32,7 @@ struct binaryElement
     struct binaryElement * leftNode;
     struct binaryElement * rightNode;
 };
-typedef struct binElement BinNode;
-
-/****************************************
- Allocates enough memory to store the required data for a binary tree, and initializes the tree.
- 
- To call the function you must pass the comparison and destroy functions you will use to sort and free the data in the binary tree. Using function pointers and sending the address of the functions allows the program to access the data whenever required from the compare function.
- 
- Example call: createBinaryTree(&compareFunction, &destroyFunction)
-****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
-
-/*destroyBinaryTree()*/
+typedef struct binaryElement BinNode;
 
 /****************************************
  Uses the compare function to add data to a binary tree from a void pointer.
@@ -53,6 +42,21 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
  Example call: addToBinaryTree(&compareFunction, dataToAdd)
  ****************************************/
 void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * root, void * dataToAdd);
+
+/****************************************
+ Allocates enough memory to store the required data for a binary tree, and initializes the tree.
+ 
+ To call the function you must pass the comparison and destroy functions you will use to sort and free the data in the binary tree. Using function pointers and sending the address of the functions allows the program to access the data whenever required from the compare function.
+ 
+ The comparison function must return a number > 0 if data1 > data2, 0 if data1 = data2, and < 0 if data1 < data2.
+ 
+ Example call: createBinaryTree(&compareFunction, &destroyFunction)
+****************************************/
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
+
+/*destroyBinaryTree()*/
+
+/*void insertNode()*/
 
 /*void removeFromTree()*/
 

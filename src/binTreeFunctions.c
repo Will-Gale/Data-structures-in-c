@@ -24,11 +24,31 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
     return newBinaryTree;
 }
 
+/*Not tested yet*/
+/*finds where to added to the binary tree*/
 void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * root, void * dataToAdd)
 {
-
+    if (isNodeEmpty(root) == false)
+    {
+        /*Traverse left*/
+        if (comparePtr(root->binVPtr, dataToAdd) < 0)
+        {
+            addToBinaryTree(comparePtr, root->leftNode, dataToAdd);
+        }
+        
+        /*Traverse right*/
+        if (comparePtr(root->binVPtr, dataToAdd) >= 0)
+        {
+            addToBinaryTree(comparePtr, root->rightNode, dataToAdd);
+        }
+    }
+    else
+    {
+        /*insert to root*/
+    }
 }
 
+/*Not tested yet*/
 /*checks to see if the node is empty*/
 bool isNodeEmpty(BinNode * root)
 {
