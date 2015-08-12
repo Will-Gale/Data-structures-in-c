@@ -21,7 +21,7 @@ struct binaryTree
 {
     int (*compareFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
-    struct binaryTree * root;
+    struct BinNode * root;
 };
 typedef struct binaryTree BinTree;
 
@@ -56,7 +56,10 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
 
 /*destroyBinaryTree()*/
 
-/*void insertNode()*/
+/****************************************
+Inserts a child node into the binary tree.
+ ****************************************/
+void insertNode(BinNode * root);
 
 /*void removeFromTree()*/
 

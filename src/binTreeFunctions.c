@@ -33,18 +33,20 @@ void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * r
         /*Traverse left*/
         if (comparePtr(root->binVPtr, dataToAdd) < 0)
         {
-            addToBinaryTree(comparePtr, root->leftNode, dataToAdd);
+        		addToBinaryTree(comparePtr, root->leftNode, dataToAdd);
         }
-        
-        /*Traverse right*/
-        if (comparePtr(root->binVPtr, dataToAdd) >= 0)
+        else if (comparePtr(root->binVPtr, dataToAdd) >= 0) /*traverse right*/
         {
             addToBinaryTree(comparePtr, root->rightNode, dataToAdd);
         }
     }
     else
     {
-        /*insert to root*/
+        /*Allocate enough memory and insert to root when the root is empty*/
+        root = malloc(sizeof(BinNode));
+        root->binVPtr = dataToAdd;
+        root->leftNode = NULL;
+        root->rightNode = NULL;
     }
 }
 

@@ -1,4 +1,5 @@
 /****************************************
+/****************************************
 Main function, uses the data structures
  
  Devin Rose
@@ -9,12 +10,14 @@ Main function, uses the data structures
 #include <stdlib.h>
 #include <string.h>
 #include "ADT.h"
+#include "binaryTree.h"
 
 int main(int argc, const char * argv[])
 {
     char studentNameBuffer[50];
     FILE * inputFile;
     Sinfo * test;
+    BinTree * binaryTree;
     void * vPtr;
     
     if (argv[1] == NULL)
@@ -32,7 +35,9 @@ int main(int argc, const char * argv[])
     }
     
     
-    printf("This function is currently being used to test the data structure functions that are being developed. \n");
+    printf("This function is being used to test and link the ADT and binary files together. \n");
+    
+    binaryTree = createBinaryTree(&compareName, &destroyADT);
     
     while (fgets(studentNameBuffer, 50, inputFile) != NULL)
     {
@@ -41,7 +46,7 @@ int main(int argc, const char * argv[])
         
         printADT(vPtr);
         printf("\n");
-        destroyADT(vPtr);
+        addToBinaryTree(binaryTree->compareFunction, binaryTree->root, vPtr);
     }
     
     
