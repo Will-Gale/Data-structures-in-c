@@ -1,5 +1,4 @@
 /****************************************
-/****************************************
 Main function, uses the data structures
  
  Devin Rose
@@ -14,6 +13,7 @@ Main function, uses the data structures
 
 int main(int argc, const char * argv[])
 {
+    bool nodeCheck;
     char studentNameBuffer[50];
     FILE * inputFile;
     Sinfo * test;
@@ -39,16 +39,30 @@ int main(int argc, const char * argv[])
     
     binaryTree = createBinaryTree(&compareName, &destroyADT);
     
+    printf("Is node empty? ");
+    
+    nodeCheck = isNodeEmpty(binaryTree->root);
+    
+    if (nodeCheck == true)
+    {
+        printf("Yes. \n");
+    }
+    else if (nodeCheck == false)
+    {
+        printf("No \n");
+    }
+    
     while (fgets(studentNameBuffer, 50, inputFile) != NULL)
     {
         test = createADT(studentNameBuffer);
         vPtr = test;
         
-        printADT(vPtr);
+        binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtr);
+        printADT(binaryTree->root->binVPtr);
         printf("\n");
-        addToBinaryTree(binaryTree->compareFunction, binaryTree->root, vPtr);
     }
     
+
     
     return 0;
 }

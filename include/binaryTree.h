@@ -16,23 +16,25 @@ enum {false, true};
  Required variables for Binary Tree
  *************************************/
 
+/*Typedefs of the ADTs used. All typedefs have the first letter capitalized*/
+typedef struct binaryTree BinTree;
+typedef struct binaryElement BinNode;
+
 /*data type to create the Binary tree*/
 struct binaryTree
 {
     int (*compareFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
-    struct BinNode * root;
+    BinNode * root;
 };
-typedef struct binaryTree BinTree;
 
 /*Required variables in a binary tree node*/
 struct binaryElement
 {
     void * binVPtr;
-    struct binaryElement * leftNode;
-    struct binaryElement * rightNode;
+    BinNode * leftNode;
+    BinNode * rightNode;
 };
-typedef struct binaryElement BinNode;
 
 /****************************************
  Uses the compare function to add data to a binary tree from a void pointer.
@@ -41,7 +43,7 @@ typedef struct binaryElement BinNode;
  
  Example call: addToBinaryTree(&compareFunction, dataToAdd)
  ****************************************/
-void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * root, void * dataToAdd);
+BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 
 /****************************************
  Allocates enough memory to store the required data for a binary tree, and initializes the tree.
@@ -57,9 +59,9 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
 /*destroyBinaryTree()*/
 
 /****************************************
-Inserts a child node into the binary tree.
+Inserts a child node into the binary tree. Memory is malloced in this function for new elements.
  ****************************************/
-void insertNode(BinNode * root);
+BinNode * insertNode(void * toAdd);
 
 /*void removeFromTree()*/
 
@@ -80,7 +82,7 @@ void insertNode(BinNode * root);
 /****************************************
  Checks to see if the node is empty.
  
- Returns true if it is NULL, and returns false otherwise.
+ Returns true if the node is NULL, returns false otherwise.
  ****************************************/
 bool isNodeEmpty(BinNode * root);
 

@@ -14,6 +14,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
     
     /*allocate enough memory for a binary tree*/
     newBinaryTree = malloc(sizeof(BinTree));
+    newBinaryTree->root = malloc(sizeof(BinNode));
     
     /*initialize variables*/
     newBinaryTree->compareFunction = comparePtr;
@@ -24,33 +25,47 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
     return newBinaryTree;
 }
 
-/*Not tested yet*/
-/*finds where to added to the binary tree*/
-void addToBinaryTree(int (*comparePtr) (void * data1, void * data2), BinNode * root, void * dataToAdd)
+/*Allocates enough memory and fills a new node*/
+BinNode * insertNode(void * toAdd)
 {
-    if (isNodeEmpty(root) == false)
+    BinNode * newNode;
+    
+    /*Allocate enough memory and insert to root when the node is empty*/
+    newNode = malloc(sizeof(BinNode));
+    newNode->binVPtr = toAdd;
+    newNode->leftNode = NULL;
+    newNode->rightNode = NULL;
+    
+    return newNode;
+}
+
+/*finds where to added to the binary tree*/
+BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd)
+{
+    if (isNodeEmpty(root) == true)
     {
-        /*Traverse left*/
-        if (comparePtr(root->binVPtr, dataToAdd) < 0)
-        {
-        		addToBinaryTree(comparePtr, root->leftNode, dataToAdd);
-        }
-        else if (comparePtr(root->binVPtr, dataToAdd) >= 0) /*traverse right*/
-        {
-            addToBinaryTree(comparePtr, root->rightNode, dataToAdd);
-        }
+        /*Allocate enough memory and insert to root when the node is empty*/
+        root = insertNode(dataToAdd);
     }
     else
     {
-        /*Allocate enough memory and insert to root when the root is empty*/
-        root = malloc(sizeof(BinNode));
-        root->binVPtr = dataToAdd;
-        root->leftNode = NULL;
-        root->rightNode = NULL;
+        if (theTree->compareFunction(root->binVPtr, dataToAdd) < 0) /*Traverse left*/
+        {
+            root->leftNode = addToBinaryTree(theTree, root->leftNode, dataToAdd);
+        }
+        else if (theTree->compareFunction(root->binVPtr, dataToAdd) >= 0) /*traverse right*/
+        {
+            root->rightNode = addToBinaryTree(theTree, root->rightNode, dataToAdd);
+        }
+        else
+        {
+            printf("Error: Node could not be added to the tree \n");
+        }
     }
+    
+    return root;
 }
 
-/*Not tested yet*/
 /*checks to see if the node is empty*/
 bool isNodeEmpty(BinNode * root)
 {
@@ -58,9 +73,14 @@ bool isNodeEmpty(BinNode * root)
     {
         return true;
     }
-    else
+    else if (root != NULL)
     {
         return false;
+    }
+    else
+    {
+        printf("Error: An error occured while checking if a node was empty, making an assumption that node is empty. Data may be lost. \n");
+        return true;
     }
 }
 
