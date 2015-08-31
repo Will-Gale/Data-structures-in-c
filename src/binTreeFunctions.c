@@ -7,38 +7,6 @@
 
 #include "binaryTree.h"
 
-/*Initializes the binary tree.*/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data))
-{
-    BinTree * newBinaryTree;
-    
-    /*allocate enough memory for a binary tree*/
-    newBinaryTree = malloc(sizeof(BinTree));
-    newBinaryTree->root = malloc(sizeof(BinNode));
-    
-    /*initialize variables*/
-    newBinaryTree->compareFunction = comparePtr;
-    newBinaryTree->destroyFunction = destroyPtr;
-    newBinaryTree->root = NULL;
-    
-    /*return the newly initialized binary tree*/
-    return newBinaryTree;
-}
-
-/*Allocates enough memory and fills a new node*/
-BinNode * insertNode(void * toAdd)
-{
-    BinNode * newNode;
-    
-    /*Allocate enough memory and insert to root when the node is empty*/
-    newNode = malloc(sizeof(BinNode));
-    newNode->binVPtr = toAdd;
-    newNode->leftNode = NULL;
-    newNode->rightNode = NULL;
-    
-    return newNode;
-}
-
 /*finds where to added to the binary tree*/
 BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd)
 {
@@ -64,6 +32,47 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd)
     }
     
     return root;
+}
+
+/*Initializes the binary tree.*/
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data))
+{
+    BinTree * newBinaryTree;
+    
+    /*allocate enough memory for a binary tree*/
+    newBinaryTree = malloc(sizeof(BinTree));
+    newBinaryTree->root = malloc(sizeof(BinNode));
+    
+    /*initialize variables*/
+    newBinaryTree->compareFunction = comparePtr;
+    newBinaryTree->destroyFunction = destroyPtr;
+    newBinaryTree->root = NULL;
+    
+    /*return the newly initialized binary tree*/
+    return newBinaryTree;
+}
+
+/*Free memory allocated in a node in the tree*/
+void destroyBinaryNode(BinTree * theTree, BinNode * nodeToFree)
+{
+    theTree->destroyFunction(nodeToFree->binVPtr);
+    
+    free(nodeToFree->leftNode);
+    free(nodeToFree->rightNode);
+}
+
+/*Allocates enough memory and fills a new node*/
+BinNode * insertNode(void * toAdd)
+{
+    BinNode * newNode;
+    
+    /*Allocate enough memory and insert to root when the node is empty*/
+    newNode = malloc(sizeof(BinNode));
+    newNode->binVPtr = toAdd;
+    newNode->leftNode = NULL;
+    newNode->rightNode = NULL;
+    
+    return newNode;
 }
 
 /*checks to see if the node is empty*/
