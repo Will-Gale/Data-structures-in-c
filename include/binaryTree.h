@@ -56,18 +56,28 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 ****************************************/
 BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
 
-
 /****************************************
  This function is called when you would like to free all memory allocated in the binary tree, including each node in the tree.
+ 
+ Recursive function that traverses through the tree destroying from the lowest valued node, to the highest.
  ****************************************/
-/*void destroyBinaryTree(BinTree * treeToFree);*/
+void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode);
+
+/****************************************
+ This function is called when you would like to free all memory allocated in the binary tree nodes.
+ 
+ Recursive function that traverses through the tree destroying from the lowest valued node, to the highest.
+ 
+ DO NOT CALL THIS FUNCTION if you would like to free all memory using the destroyBinaryTree() function. The destroyBinaryTree() function already calls this function before freeing the elements within the tree data structure.
+ ****************************************/
+void destroyBinaryTreeNodes(BinTree * treeToFree, BinNode * currentNode);
 
 /****************************************
  This function destroys a node in the binary tree. It takes the tree as an argument and the node and frees all memory allocated in the node and frees the data being pointed to from the ADT used.
  
  The tree must be initialized and contain the users destroy function for whatever data type they are choosing to use.
  
- This function simply frees the memory. If the user wants to simply remove the node, use removeFromBinTree() function. This function will cause a segmentation fault or lost data somewhere in the tree if the user calls this function instead of removeFromBinTree()
+ This function simply frees the memory. If the user wants to simply remove the node, use removeNodeFromBinTree() function. This function will cause a segmentation fault or lost data somewhere in the tree if the user calls this function instead of removeFromBinTree()
  ****************************************/
 void destroyBinaryNode(BinTree * treeToFree, BinNode * nodeToFree);
 
@@ -77,7 +87,12 @@ Inserts a child node into the binary tree. Memory is malloced in this function f
  ****************************************/
 BinNode * insertNode(void * toAdd);
 
-/*void removeFromBinTree()*/
+/****************************************
+ This function function fully removes a node from the tree and frees the memory allocated in the node.
+ 
+ Write the plan when decision has been made.
+ ****************************************/
+/*void removeNodeFromBinTree(BinTree * theTree, BinNode->nodeToRemove);*/
 
 /*binNode * searchBinTree()*/
 
