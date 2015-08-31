@@ -62,7 +62,20 @@ int main(int argc, const char * argv[])
         printf("\n");
     }
     
-
+    destroyBinaryNode(binaryTree, binaryTree->root);
+    
+    nodeCheck = isNodeEmpty(binaryTree->root);
+    
+    if (nodeCheck == true)
+    {
+        printf("Yes. \n");
+    }
+    else if (nodeCheck == false)
+    {
+        printf("No \n");
+    }
+    
+    printADT(binaryTree->root->binVPtr);
     
     return 0;
 }
