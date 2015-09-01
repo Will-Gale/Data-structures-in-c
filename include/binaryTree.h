@@ -25,6 +25,7 @@ struct binaryTree
 {
     int (*compareFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
+    void (* printFunction) (void * dataToPrint);
     BinNode * root;
 };
 
@@ -45,6 +46,7 @@ struct binaryElement
  ****************************************/
 BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 
+
 /****************************************
  Allocates enough memory to store the required data for a binary tree, and initializes the tree.
  
@@ -56,6 +58,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 ****************************************/
 BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
 
+
 /****************************************
  This function is called when you would like to free all memory allocated in the binary tree.
  
@@ -64,6 +67,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
  DO NOT CALL THIS FUNCTION if you would like to free all memory using the destroyBinaryTree() function. The destroyBinaryTree() function already calls this function before freeing the elements within the tree data structure.
  ****************************************/
 void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode);
+
 
 /****************************************
  This function destroys a node in the binary tree. It takes the tree as an argument and the node and frees all memory allocated in the node and frees the data being pointed to from the ADT used.
@@ -80,12 +84,14 @@ Inserts a child node into the binary tree. Memory is malloced in this function f
  ****************************************/
 BinNode * insertNode(void * toAdd);
 
+
 /****************************************
  This function function fully removes a node from the tree and frees the memory allocated in the node.
  
  Write the plan when decision has been made.
  ****************************************/
 /*void removeNodeFromBinTree(BinTree * theTree, BinNode->nodeToRemove);*/
+
 
 /*binNode * searchBinTree()*/
 
@@ -95,7 +101,11 @@ BinNode * insertNode(void * toAdd);
 
 /*void * getRootData(Tree *)*/
 
-/*void printInOrder(Tree * theTree)*/
+
+/****************************************
+ Calling this function will print the binary tree elements in order from least to most by traversing through the tree left then right.
+ ****************************************/
+void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
 
 /*void printPreOrder(Tree * theTree, void (* printNode) (void data))*/
 
