@@ -50,13 +50,13 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 /****************************************
  Allocates enough memory to store the required data for a binary tree, and initializes the tree.
  
- To call the function you must pass the comparison and destroy functions you will use to sort and free the data in the binary tree. Using function pointers and sending the address of the functions allows the program to access the data whenever required from the compare function.
+ To call the function you must pass comparison, print and destroy functions that you will use to sort and free the data in the binary tree. Using function pointers and sending the address of the functions allows the program to access the data whenever required from the compare function.
  
  The comparison function must return a number > 0 if data1 > data2, 0 if data1 = data2, and < 0 if data1 < data2.
  
- Example call: createBinaryTree(&compareFunction, &destroyFunction)
+ Example call: createBinaryTree(&compareFunction, &destroyFunction, &printFunction);
 ****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printFunction) (void * dataToPrint));
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint));
 
 
 /****************************************
