@@ -62,7 +62,7 @@ int main(int argc, const char * argv[])
         printf("\n");
     }
     
-    destroyBinaryTreeNodes(binaryTree, binaryTree->root);
+    destroyBinaryTree(binaryTree, binaryTree->root);
     
     return 0;
 }

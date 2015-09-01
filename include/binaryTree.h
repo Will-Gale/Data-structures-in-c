@@ -57,20 +57,13 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
 
 /****************************************
- This function is called when you would like to free all memory allocated in the binary tree, including each node in the tree.
- 
- Recursive function that traverses through the tree destroying from the lowest valued node, to the highest.
- ****************************************/
-void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode);
-
-/****************************************
- This function is called when you would like to free all memory allocated in the binary tree nodes.
+ This function is called when you would like to free all memory allocated in the binary tree.
  
  Recursive function that traverses through the tree destroying from the lowest valued node, to the highest.
  
  DO NOT CALL THIS FUNCTION if you would like to free all memory using the destroyBinaryTree() function. The destroyBinaryTree() function already calls this function before freeing the elements within the tree data structure.
  ****************************************/
-void destroyBinaryTreeNodes(BinTree * treeToFree, BinNode * currentNode);
+void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode);
 
 /****************************************
  This function destroys a node in the binary tree. It takes the tree as an argument and the node and frees all memory allocated in the node and frees the data being pointed to from the ADT used.

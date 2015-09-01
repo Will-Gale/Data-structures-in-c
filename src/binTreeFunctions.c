@@ -61,30 +61,10 @@ void destroyBinaryNode(BinTree * theTree, BinNode * nodeToFree)
     free(nodeToFree->rightNode);
 }
 
-/*Frees all memory allocated within the binary tree*/
-void destroyBinaryTree(BinTree * treeToFree, BinNode * nodeToFree)
-{
-    /*destroy all nodes in the binary tree*/
-    destroyBinaryTree(treeToFree, nodeToFree);
-    
-    /*free(treeToFree->compareFunction);
-    free(treeToFree->destroyFunction);*/
-}
-
-
 
 /*Frees all memory allocated within the binary tree nodes from lowest valued to highest valued node*/
-/****************************************
- Currently causes seg fault.
- ****************************************/
-void destroyBinaryTreeNodes(BinTree * treeToFree, BinNode * currentNode)
+void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode)
 {
-    if (isNodeEmpty(currentNode) == true)
-    {
-        destroyBinaryNode(treeToFree, currentNode);
-        currentNode = NULL;
-    }
-    
     /*Traverse left*/
     if (currentNode->leftNode != NULL)
     {
@@ -96,6 +76,10 @@ void destroyBinaryTreeNodes(BinTree * treeToFree, BinNode * currentNode)
     {
         destroyBinaryTree(treeToFree, currentNode->rightNode);
     }
+    
+    /*frees the memory of the node if both child nodes are NULL*/
+    destroyBinaryNode(treeToFree, currentNode);
+    currentNode = NULL;
 }
 
 /*Allocates enough memory and fills a new node*/
