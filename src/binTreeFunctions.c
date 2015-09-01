@@ -35,7 +35,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd)
 }
 
 /*Initializes the binary tree.*/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data))
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printFunction) (void * dataToPrint))
 {
     BinTree * newBinaryTree;
     
@@ -46,6 +46,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
     /*initialize variables*/
     newBinaryTree->compareFunction = comparePtr;
     newBinaryTree->destroyFunction = destroyPtr;
+    
     newBinaryTree->root = NULL;
     
     /*return the newly initialized binary tree*/

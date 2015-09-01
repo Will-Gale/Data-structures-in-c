@@ -56,7 +56,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
  
  Example call: createBinaryTree(&compareFunction, &destroyFunction)
 ****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data));
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printFunction) (void * dataToPrint));
 
 
 /****************************************
