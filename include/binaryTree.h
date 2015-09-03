@@ -101,14 +101,6 @@ BinNode * insertNode(void * toAdd);
 
 /*void * getRootData(Tree *)*/
 
-
-/****************************************
- Calling this function will print the binary tree elements in order from least to most by traversing through the tree left then right.
- ****************************************/
-void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
-
-/*void printPreOrder(Tree * theTree, void (* printNode) (void data))*/
-
 /*void printBinaryTree(Tree *)*/
 
 /****************************************
@@ -119,4 +111,11 @@ void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
 bool isNodeEmpty(BinNode * root);
 
 /*bool isTreeEmpty(Tree * theTree)*/
+
+/****************************************
+ Calling this function will print the binary tree elements in order from least to most by traversing through the tree left then right.
+ ****************************************/
+void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
+
+/*void printPreOrder(Tree * theTree, void (* printNode) (void data))*/
  

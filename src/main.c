@@ -52,15 +52,18 @@ int main(int argc, const char * argv[])
         printf("No \n");
     }
     
+    /*now fill tree*/
     while (fgets(studentNameBuffer, 50, inputFile) != NULL)
     {
         test = createADT(studentNameBuffer);
         vPtr = test;
         
         binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtr);
-        printADT(binaryTree->root->binVPtr);
-        printf("\n");
+        /*printADT(binaryTree->root->binVPtr);
+        printf("\n");*/
     }
+    
+    printInOrder(binaryTree, binaryTree->root);
     
     destroyBinaryTree(binaryTree, binaryTree->root);
     

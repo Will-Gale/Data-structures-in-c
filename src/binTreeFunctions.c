@@ -115,3 +115,23 @@ bool isNodeEmpty(BinNode * root)
     }
 }
 
+/*Not 100% correct*/
+void printInOrder(BinTree * theTree, BinNode * nodeToPrint)
+{
+    if (nodeToPrint->leftNode != NULL)
+    {
+        printInOrder(theTree, nodeToPrint->leftNode);
+    }
+    
+    if (nodeToPrint->rightNode != NULL)
+    {
+        printInOrder(theTree, nodeToPrint->rightNode);
+    }
+    
+    if (nodeToPrint !=NULL)
+    {
+        theTree->printFunction(nodeToPrint->binVPtr);
+        printf("\n");
+    }
+}
+
