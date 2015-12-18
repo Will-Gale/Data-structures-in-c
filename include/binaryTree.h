@@ -50,9 +50,12 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
 /****************************************
  Allocates enough memory to store the required data for a binary tree, and initializes the tree.
  
- To call the function you must pass comparison, print and destroy functions that you will use to sort and free the data in the binary tree. Using function pointers and sending the address of the functions allows the program to access the data whenever required from the compare function.
+ To call the function you must pass comparison, print and destroy functions that you will use to 
+ sort and free the data in the binary tree. Using function pointers and sending the address of 
+ the functions allows the program to access the data whenever required from the compare function.
  
- The comparison function must return a number > 0 if data1 > data2, 0 if data1 = data2, and < 0 if data1 < data2.
+ The comparison function must return a number > 0 if data1 > data2, 0 if data1 = data2, 
+ and < 0 if data1 < data2.
  
  Example call: createBinaryTree(&compareFunction, &destroyFunction, &printFunction);
 ****************************************/
@@ -62,31 +65,42 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
 /****************************************
  This function is called when you would like to free all memory allocated in the binary tree.
  
- Recursive function that traverses through the tree destroying from the lowest valued node, to the highest.
+ Recursive function that traverses through the tree destroying from the lowest valued node, to 
+ the highest.
  
- DO NOT CALL THIS FUNCTION if you would like to free all memory using the destroyBinaryTree() function. The destroyBinaryTree() function already calls this function before freeing the elements within the tree data structure.
+ DO NOT CALL THIS FUNCTION if you would like to free all memory using the destroyBinaryTree() 
+ function. The destroyBinaryTree() function already calls this function before freeing the 
+ elements within the tree data structure.
  ****************************************/
 void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode);
 
 
 /****************************************
- This function destroys a node in the binary tree. It takes the tree as an argument and the node and frees all memory allocated in the node and frees the data being pointed to from the ADT used.
+ This function destroys a node in the binary tree. It takes the tree as an argument and the 
+ node and frees all memory allocated in the node and frees the data being pointed to from 
+ the ADT used.
  
- The tree must be initialized and contain the users destroy function for whatever data type they are choosing to use.
+ The tree must be initialized and contain the users destroy function for whatever data type 
+ they are choosing to use.
  
- This function simply frees the memory. If the user wants to simply remove the node, use removeNodeFromBinTree() function. This function will cause a segmentation fault or lost data somewhere in the tree if the user calls this function instead of removeFromBinTree()
+ This function simply frees the memory. If the user wants to simply remove the node, use 
+ removeNodeFromBinTree() function. This function will cause a segmentation fault or lost 
+ data somewhere in the tree if the user calls this function instead of removeFromBinTree()
  ****************************************/
 void destroyBinaryNode(BinTree * treeToFree, BinNode * nodeToFree);
 
 
 /****************************************
-Inserts a child node into the binary tree. Memory is malloced in this function for new elements.
+Inserts a child node into the binary tree. Memory is malloced in this function for new 
+
+elements.
  ****************************************/
 BinNode * insertNode(void * toAdd);
 
 
 /****************************************
- This function function fully removes a node from the tree and frees the memory allocated in the node.
+ This function function fully removes a node from the tree and frees the memory allocated in 
+ the node.
  
  Write the plan when decision has been made.
  ****************************************/
@@ -113,7 +127,8 @@ bool isNodeEmpty(BinNode * root);
 /*bool isTreeEmpty(Tree * theTree)*/
 
 /****************************************
- Calling this function will print the binary tree elements in order from least to most by traversing through the tree left then right.
+ Calling this function will print the binary tree elements in order from least to most by traversing 
+ through the tree left then right.
  ****************************************/
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
 

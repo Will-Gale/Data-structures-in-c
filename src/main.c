@@ -11,8 +11,7 @@ Main function, uses the data structures
 #include "ADT.h"
 #include "binaryTree.h"
 
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char * argv[]) {
     bool nodeCheck;
     char studentNameBuffer[50];
     FILE * inputFile;
@@ -20,16 +19,14 @@ int main(int argc, const char * argv[])
     BinTree * binaryTree;
     void * vPtr;
     
-    if (argv[1] == NULL)
-    {
+    if (argv[1] == NULL) {
         printf("Error: There is no data to enter, now exiting. \n");
         return 0;
     }
     
     inputFile = fopen(argv[1], "r");
     
-    if (inputFile == NULL)
-    {
+    if (inputFile == NULL) {
         printf("Error: File could not be open, now exiting. /n");
         return 0;
     }
@@ -43,18 +40,14 @@ int main(int argc, const char * argv[])
     
     nodeCheck = isNodeEmpty(binaryTree->root);
     
-    if (nodeCheck == true)
-    {
+    if (nodeCheck == true) {
         printf("Yes. \n");
-    }
-    else if (nodeCheck == false)
-    {
+    } else if (nodeCheck == false) {
         printf("No \n");
     }
     
     /*now fill tree*/
-    while (fgets(studentNameBuffer, 50, inputFile) != NULL)
-    {
+    while (fgets(studentNameBuffer, 50, inputFile) != NULL) {
         test = createADT(studentNameBuffer);
         vPtr = test;
         
@@ -63,6 +56,7 @@ int main(int argc, const char * argv[])
         printf("\n");*/
     }
     
+    printf("Testing print in order \n");
     printInOrder(binaryTree, binaryTree->root);
     
     destroyBinaryTree(binaryTree, binaryTree->root);

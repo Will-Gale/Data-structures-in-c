@@ -13,8 +13,7 @@
 
 
 /*Nanme comparison using a void pointer*/
-int compareName(void * ptrOne, void * ptrTwo)
-{
+int compareName(void * ptrOne, void * ptrTwo) {
     int nameComparison;
     Sinfo * comparisonOne = (Sinfo *) ptrOne;
     Sinfo * comparisonTwo = (Sinfo *) ptrTwo;
@@ -27,8 +26,7 @@ int compareName(void * ptrOne, void * ptrTwo)
 
 
 /*Initializes an ADT that will be added to the tree */
-Sinfo * createADT(const char * inputString)
-{
+Sinfo * createADT(const char * inputString) {
     char * cPtr;
     Sinfo * newStruct = malloc(sizeof(Sinfo));
     
@@ -54,8 +52,7 @@ Sinfo * createADT(const char * inputString)
 
 
 /*frees the allocated memory in the ADT the void pointer points to*/
-void destroyADT(void * ptrToFree)
-{
+void destroyADT(void * ptrToFree) {
     Sinfo * toDestroy = (Sinfo *) ptrToFree;
     
     /*frees allocated memory in the ADT*/
@@ -65,8 +62,7 @@ void destroyADT(void * ptrToFree)
 
 
 /*print the information from void pointers*/
-void printADT(void * printPtr)
-{
+void printADT(void * printPtr) {
     Sinfo * tempToPrint = (Sinfo *) printPtr;
     
     /*print out the data stored in the Rinfo ADT elementToPrint*/
