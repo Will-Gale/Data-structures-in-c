@@ -49,6 +49,12 @@ Sinfo * createADT(const char * inputString);
 void destroyADT(void * ptrToFree);
 
 /*****
+This function determines if the ADTs are equivalent from void pointers
+ *****/
+
+int equalsADT(void * ptrOne, void * ptrTwo);
+
+/*****
  This function simply prints the data stored in the ADT. In order for other functions to print the data, a print function that uses a void pointer is required.
  *****/
 

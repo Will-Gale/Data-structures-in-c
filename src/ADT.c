@@ -50,6 +50,22 @@ Sinfo * createADT(const char * inputString) {
     return newStruct;
 }
 
+/*Checks if ADTs are equivalent*/
+int equalsADT(void * ptrOne, void * ptrTwo) {
+    int studentNumberComparison;
+
+    Sinfo * compareNumOne = (Sinfo *) ptrOne;
+    Sinfo * compareNumTwo = (Sinfo *) ptrTwo;
+
+    studentNumberComparison = strcmp(compareNumOne->studentNumber, compareNumTwo->studentNumber);
+
+    if (compareName(ptrOne, ptrTwo) == 0 && studentNumberComparison == 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 
 /*frees the allocated memory in the ADT the void pointer points to*/
 void destroyADT(void * ptrToFree) {

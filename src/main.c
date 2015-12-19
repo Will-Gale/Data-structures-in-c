@@ -58,6 +58,16 @@ int main(int argc, const char * argv[]) {
     
     printf("Testing print in order \n");
     printInOrder(binaryTree, binaryTree->root);
+
+
+    printf("Testing equals for ");
+    binaryTree->printFunction(binaryTree->root->binVPtr);
+    printf(" and ");
+    binaryTree->printFunction(binaryTree->root->binVPtr);
+    printf("\n");
+
+    printf("Result = %d", equalsADT(binaryTree->root->binVPtr, binaryTree->root->binVPtr));
+    printf("\n");
     
     destroyBinaryTree(binaryTree, binaryTree->root);
     
