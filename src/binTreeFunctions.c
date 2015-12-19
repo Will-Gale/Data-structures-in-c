@@ -13,9 +13,9 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
         /*Allocate enough memory and insert to root when the node is empty*/
         root = insertNode(dataToAdd);
     } else {
-        if (theTree->compareFunction(root->binVPtr, dataToAdd) < 0) {
+        if (theTree->compareFunction(dataToAdd, root->binVPtr) < 0) {
             root->leftNode = addToBinaryTree(theTree, root->leftNode, dataToAdd); /*Traverse left*/
-        } else if (theTree->compareFunction(root->binVPtr, dataToAdd) >= 0) {
+        } else if (theTree->compareFunction(dataToAdd, root->binVPtr) >= 0) {
             root->rightNode = addToBinaryTree(theTree, root->rightNode, dataToAdd); /*Traverse right*/
         } else {
             printf("Error: Node could not be added to the tree \n");

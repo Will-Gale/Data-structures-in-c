@@ -21,8 +21,7 @@ typedef struct binaryTree BinTree;
 typedef struct binaryElement BinNode;
 
 /*data type to create the Binary tree*/
-struct binaryTree
-{
+struct binaryTree {
     int (*compareFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
     void (* printFunction) (void * dataToPrint);
@@ -30,8 +29,7 @@ struct binaryTree
 };
 
 /*Required variables in a binary tree node*/
-struct binaryElement
-{
+struct binaryElement {
     void * binVPtr;
     BinNode * leftNode;
     BinNode * rightNode;

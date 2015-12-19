@@ -50,11 +50,11 @@ int main(int argc, const char * argv[]) {
     while (fgets(studentNameBuffer, 50, inputFile) != NULL) {
         test = createADT(studentNameBuffer);
         vPtr = test;
-        
+
         binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtr);
-        /*printADT(binaryTree->root->binVPtr);
-        printf("\n");*/
     }
+
+
     
     printf("Testing print in order \n");
     printInOrder(binaryTree, binaryTree->root);
