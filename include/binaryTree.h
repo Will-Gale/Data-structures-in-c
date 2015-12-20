@@ -23,6 +23,7 @@ typedef struct binaryElement BinNode;
 /*data type to create the Binary tree*/
 struct binaryTree {
     int (*compareFunction) (void * data1, void * data2);
+    int (*equalsFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
     void (* printFunction) (void * dataToPrint);
     BinNode * root;
@@ -57,7 +58,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
  
  Example call: createBinaryTree(&compareFunction, &destroyFunction, &printFunction);
 ****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint));
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint));
 
 
 /****************************************
@@ -90,7 +91,6 @@ void destroyBinaryNode(BinTree * treeToFree, BinNode * nodeToFree);
 
 /****************************************
 Inserts a child node into the binary tree. Memory is malloced in this function for new 
-
 elements.
  ****************************************/
 BinNode * insertNode(void * toAdd);
@@ -104,8 +104,13 @@ BinNode * insertNode(void * toAdd);
  ****************************************/
 /*void removeNodeFromBinTree(BinTree * theTree, BinNode->nodeToRemove);*/
 
+/****************************************
+ Traverses through the binary tree and returns a pointer to the node if the search finds a 
+ mathcing node.
 
-/*binNode * searchBinTree()*/
+ Returns null if the node is not found. 
+ ****************************************/
+BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFind);
 
 /*Tree * getLeftChildNode*/
 
@@ -129,6 +134,4 @@ bool isNodeEmpty(BinNode * root);
  through the tree left then right.
  ****************************************/
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
-
-/*void printPreOrder(Tree * theTree, void (* printNode) (void data))*/
  

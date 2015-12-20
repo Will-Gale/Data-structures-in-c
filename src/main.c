@@ -34,7 +34,7 @@ int main(int argc, const char * argv[]) {
     
     printf("This function is being used to test and link the ADT and binary files together. \n");
     
-    binaryTree = createBinaryTree(&compareName, &destroyADT, &printADT);
+    binaryTree = createBinaryTree(&compareName, &equalsADT, &destroyADT, &printADT);
     
     printf("Is node empty? ");
     

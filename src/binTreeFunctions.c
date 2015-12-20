@@ -26,7 +26,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
 }
 
 /*Initializes the binary tree.*/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint)) {
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint)) {
     BinTree * newBinaryTree;
     
     /*allocate enough memory for a binary tree*/
@@ -35,6 +35,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), void 
     
     /*initialize variables*/
     newBinaryTree->compareFunction = comparePtr;
+    newBinaryTree->equalsFunction = equalsFunction;
     newBinaryTree->destroyFunction = destroyPtr;
     newBinaryTree->printFunction = printPtr;
     newBinaryTree->root = NULL;
@@ -94,7 +95,7 @@ bool isNodeEmpty(BinNode * root) {
     }
 }
 
-/*Not 100% correct*/
+/*Prints the list of nodes in the tree in order*/
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
     if (nodeToPrint->leftNode != NULL) {
         printInOrder(theTree, nodeToPrint->leftNode);
@@ -108,6 +109,46 @@ void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
     if (nodeToPrint->rightNode != NULL) {
         printInOrder(theTree, nodeToPrint->rightNode);
     }
-    
 }
+
+/*Searches the tree and returns a matching node if found, if not found, returns null*/
+BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFind) {
+    BinNode * ptrToNode;
+
+    if (isNodeEmpty(nodeInTree) == true) {
+        ptrToNode = NULL; /*Returns null if the search finds an empty node*/
+    } else if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) >= 0) {
+        if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) == 0) {
+            if (toSearch->equalsFunction(nodeInTree->binVPtr, ptrToFind) == 0) { /*Check equals*/
+                ptrToNode = nodeInTree;
+                return ptrToNode; /*Return the pointer to end the recursive calls*/
+            } 
+        } 
+
+        ptrToNode = searchBinTree(toSearch, nodeInTree->rightNode, ptrToFind); /*Traverse right*/
+    
+    } else if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) < 0) {
+            ptrToNode = searchBinTree(toSearch, nodeInTree->leftNode, ptrToFind); /*Traverse left*/
+    } else {
+        ptrToNode = NULL;
+    }
+
+    return ptrToNode;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
