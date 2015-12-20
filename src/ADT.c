@@ -45,7 +45,9 @@ Sinfo * createADT(const char * inputString) {
     strcpy(newStruct->studentNumber, cPtr);
     
     /*Gets rid of the new line at the end of the string*/
-    newStruct->studentNumber[strlen(newStruct->studentNumber)-1] = '\0';
+    if (newStruct->studentNumber[strlen(newStruct->studentNumber)-1] == '\n') {
+        newStruct->studentNumber[strlen(newStruct->studentNumber)-1] = '\0';
+    }
     
     return newStruct;
 }

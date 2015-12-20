@@ -14,9 +14,13 @@ Main function, uses the data structures
 int main(int argc, const char * argv[]) {
     bool nodeCheck;
     char studentNameBuffer[50];
+    const char * searchTestString;
     FILE * inputFile;
+    Sinfo * searchTest;
     Sinfo * test;
     BinTree * binaryTree;
+    void * searchVPtr;
+    BinNode * searchResultsPtr;
     void * vPtr;
     
     if (argv[1] == NULL) {
@@ -59,16 +63,33 @@ int main(int argc, const char * argv[]) {
     printf("Testing print in order \n");
     printInOrder(binaryTree, binaryTree->root);
 
+    searchTestString = "Smith,718870";
+    searchTest = createADT(searchTestString);
+    searchVPtr = searchTest;
 
     printf("Testing equals for ");
     binaryTree->printFunction(binaryTree->root->binVPtr);
     printf(" and ");
-    binaryTree->printFunction(binaryTree->root->binVPtr);
+    binaryTree->printFunction(searchVPtr);
     printf("\n");
 
-    printf("Result = %d", equalsADT(binaryTree->root->binVPtr, binaryTree->root->binVPtr));
+    printf("Result = %d", equalsADT(binaryTree->root->binVPtr, searchVPtr));
     printf("\n");
-    
+
+    printf("Testing search for ");
+    binaryTree->printFunction(searchVPtr);
+    printf("\n");
+    searchResultsPtr = searchBinTree(binaryTree, binaryTree->root, searchVPtr);
+
+    if (searchResultsPtr != NULL) {
+        printf("Found: ");
+        binaryTree->printFunction(searchResultsPtr->binVPtr);
+        printf("\n");
+    } else if (searchResultsPtr == NULL) {
+        binaryTree->printFunction(searchVPtr);
+        printf(" was not found\n");
+    }
+
     destroyBinaryTree(binaryTree, binaryTree->root);
     
     return 0;
