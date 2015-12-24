@@ -5,7 +5,7 @@
  August, 2015
  ****************************************/
 
-#include "binaryTree.h"
+#include "binTree.h"
 
 /*finds where to added to the binary tree*/
 BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
@@ -84,7 +84,7 @@ BinNode * insertNode(void * toAdd) {
 }
 
 /*checks to see if the node is empty*/
-bool isNodeEmpty(BinNode * root) {
+boolBin isNodeEmpty(BinNode * root) {
     if (root == NULL) {
         return true;
     } else if (root != NULL) {
@@ -112,7 +112,6 @@ void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
 }
 
 /*Searches the tree and returns a matching node if found, if not found, returns null*/
-/*Currently a bug in search function*/
 BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFind) {
     BinNode * nodePtr = NULL;
 

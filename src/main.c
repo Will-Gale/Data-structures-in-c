@@ -9,19 +9,22 @@ Main function, uses the data structures
 #include <stdlib.h>
 #include <string.h>
 #include "ADT.h"
-#include "binaryTree.h"
+#include "binTree.h"
+#include "avlTree.h"
 
 int main(int argc, const char * argv[]) {
-    bool nodeCheck;
+    /*boolBin nodeCheck;*/
     char studentNameBuffer[50];
     const char * searchTestString;
     FILE * inputFile;
     Sinfo * searchTest;
-    Sinfo * test;
+    Sinfo * testBin;
+    Sinfo * testAvl;
     BinTree * binaryTree;
     void * searchVPtr;
     BinNode * searchResultsPtr;
-    void * vPtr;
+    void * vPtrBin;
+    void * vPtrAvl;
     
     if (argv[1] == NULL) {
         printf("Error: There is no data to enter, now exiting. \n");
@@ -40,41 +43,22 @@ int main(int argc, const char * argv[]) {
     
     binaryTree = createBinaryTree(&compareName, &equalsADT, &destroyADT, &printADT);
     
-    printf("Is node empty? ");
-    
-    nodeCheck = isNodeEmpty(binaryTree->root);
-    
-    if (nodeCheck == true) {
-        printf("Yes. \n");
-    } else if (nodeCheck == false) {
-        printf("No \n");
-    }
-    
     /*now fill tree*/
     while (fgets(studentNameBuffer, 50, inputFile) != NULL) {
-        test = createADT(studentNameBuffer);
-        vPtr = test;
+        testBin = createADT(studentNameBuffer);
+        testAvl = createADT(studentNameBuffer);
+        vPtrBin = testBin;
+        vPtrAvl = testAvl;
 
-        binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtr);
+        binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtrBin);
     }
 
-
-    
     printf("Testing print in order \n");
     printInOrder(binaryTree, binaryTree->root);
 
     searchTestString = "Smith,718870";
     searchTest = createADT(searchTestString);
     searchVPtr = searchTest;
-
-    printf("Testing equals for ");
-    binaryTree->printFunction(binaryTree->root->binVPtr);
-    printf(" and ");
-    binaryTree->printFunction(searchVPtr);
-    printf("\n");
-
-    printf("Result = %d", equalsADT(binaryTree->root->binVPtr, searchVPtr));
-    printf("\n");
 
     printf("Testing search for ");
     binaryTree->printFunction(searchVPtr);

@@ -9,7 +9,7 @@ ADT Binary tree user interface
 #include<stdlib.h>
 
 /*Created boolean data type*/
-typedef int bool;
+typedef int boolBin;
 enum {false, true};
 
 /*************************************
@@ -125,7 +125,7 @@ BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFi
  
  Returns true if the node is NULL, returns false otherwise.
  ****************************************/
-bool isNodeEmpty(BinNode * root);
+boolBin isNodeEmpty(BinNode * root);
 
 /*bool isTreeEmpty(Tree * theTree)*/
 

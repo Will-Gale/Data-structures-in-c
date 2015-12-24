@@ -7,3 +7,12 @@ Use make to build the object files for your current architecture in the main dir
 
 Running
 Use whatever method you would like to insert data into the data structures. A user interface will be implemented soon.
+
+
+Future improvements
+FIFO.c
+LIFO.c
+- Include a struct to define list length as well as a toString function
+HashMap.c
+- Let the user define a hashFunction that returns an integer, store void pointers inside the hashmap
+Sorting.c
