@@ -32,6 +32,25 @@ struct AvlElement
 };
 
 
+
+/******
+ AvlTree interface Functions
+******/
+
+/*Adds "data" to the tree*/
+AvlTree * addToTree(AvlTree * theTree, void * data);
+
+/*destroys the AVL tree*/
+void destroyAVLTree(AvlTree * toDie);
+
+/*finds out if the data is in the tree*/
+AvlNode * findFirst(AvlNode * root, void * data, int (*comparePointer) (void * data1, void * data2));
+
+/*removes "data" from the tree*/
+/*AvlNode * removeFromTree(AvlNode * treeRoot, void * data, int (*comparePointer) (void * data1, void * data2), void (*destroyPointer) (void *));*/
+
+
+
 /******
  Utility Functions
 ******/
@@ -60,13 +79,12 @@ void * getRootData (AvlTree * node);
 
 
 
-
 /******
- AVLTree operation functions
+ AvlTree operation functions
 ******/
 
-/*initializes a binary tree, allocates enough memory*/
-AvlTree * createAVLTree(int (*comparePointer) (void * data1, void * data2), int (*printPointer) (void *), void (*destroyPointer) (void *));
+/*initializes an Avl tree, allocates enough memory*/
+AvlTree * createAvlTree(int (*comparePointer) (void * data1, void * data2), int (*printPointer) (void *), void (*destroyPointer) (void *));
 
 /*removes a node from the AVL tree
 AVLNode * deleteAvlNode(AvlTree * theTree, AvlNode * treeRoot);*/
@@ -85,7 +103,7 @@ AvlNode * doubleRotateWithRightChild (AvlNode * oldRoot);
 AvlNode * findMin(AvlNode * root);
 
 /*inserts a node into the AVL tree, only used for testing*/
-AvlNode * addToAvlTree(AvlNode * root, AvlTree * Avltree, void * data);
+AvlNode * insertNodeToAvlTree(AvlNode * root, AvlTree * Avltree, void * data);
 
 /*single rotation functions*/
 AvlNode * rotateRightWithLeftChild(AvlNode * oldRoot);

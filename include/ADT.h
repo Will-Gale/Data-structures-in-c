@@ -1,5 +1,5 @@
 /************************************************************************
- Abstracted data type header file, usable functions
+ Abstracted data type header file, usable functions.
  
  Devin Rose
  August, 2015
