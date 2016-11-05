@@ -9,10 +9,12 @@ Running
 Use whatever method you would like to insert data into the data structures. A user interface will be implemented soon.
 
 
-Future improvements
-FIFO.c
-LIFO.c
-- Include a struct to define list length as well as a toString function
+Future improvements:
+Queue.c
+List.c
+
 HashMap.c
 - Let the user define a hashFunction that returns an integer, store void pointers inside the hashmap
+
 Sorting.c
+- Will require user defined function pointers 

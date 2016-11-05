@@ -128,7 +128,7 @@ void testStack(FILE * inputStream) {
         printf("Now adding the following node,\n\t");
         testStack->push(testStack, vPtr);
         testStack->toString(testStack->root->dataInNode);
-        printf("\n\t listSize = %d\n", testStack->size);
+        printf("\n\t listSize = %d\n", testStack->stackSize);
     }
 
     /* Pop off all nodes and print each node that is removed*/
@@ -136,7 +136,7 @@ void testStack(FILE * inputStream) {
         printf("Now removing and freeing the following node,\n\t");
         testStack->toString(testStack->root->dataInNode);
         testStack->pop(testStack);
-        printf("\n");
+        printf("\n\t listSize = %d\n", testStack->stackSize);
     }
 
     free(testStack);
