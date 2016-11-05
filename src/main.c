@@ -138,6 +138,8 @@ void testStack(FILE * inputStream) {
         testStack->pop(testStack);
         printf("\n\t listSize = %d\n", testStack->stackSize);
     }
+    
+    testStack->pop(testStack); /* Attempting to remove a node from an empty stack */
 
     free(testStack);
 }
