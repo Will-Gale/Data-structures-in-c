@@ -5,8 +5,8 @@ ADT Binary tree user interface
  August, 2015
 ****************************************/
 
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*Created boolean data type*/
 typedef int boolBin;

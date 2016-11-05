@@ -7,16 +7,16 @@
 
 #include "binTree.h"
 
-/*finds where to added to the binary tree*/
+/* Finds where to added to the binary tree */
 BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
     if (isNodeEmpty(root) == true) {
-        /*Allocate enough memory and insert to root when the node is empty*/
+        /* Allocate enough memory and insert to root when the node is empty */
         root = insertNode(dataToAdd);
     } else {
         if (theTree->compareFunction(dataToAdd, root->binVPtr) < 0) {
-            root->leftNode = addToBinaryTree(theTree, root->leftNode, dataToAdd); /*Traverse left*/
+            root->leftNode = addToBinaryTree(theTree, root->leftNode, dataToAdd); /* Traverse left */
         } else if (theTree->compareFunction(dataToAdd, root->binVPtr) >= 0) {
-            root->rightNode = addToBinaryTree(theTree, root->rightNode, dataToAdd); /*Traverse right*/
+            root->rightNode = addToBinaryTree(theTree, root->rightNode, dataToAdd); /* Traverse right */
         } else {
             printf("Error: Node could not be added to the tree \n");
         }
@@ -31,7 +31,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (
     
     /*allocate enough memory for a binary tree*/
     newBinaryTree = malloc(sizeof(BinTree));
-    newBinaryTree->root = malloc(sizeof(BinNode));
+    /*newBinaryTree->root = malloc(sizeof(BinNode));*/
     
     /*initialize variables*/
     newBinaryTree->compareFunction = comparePtr;
@@ -134,20 +134,6 @@ BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFi
 
     return nodePtr;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
