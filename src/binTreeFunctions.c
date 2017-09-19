@@ -101,7 +101,7 @@ void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
         printInOrder(theTree, nodeToPrint->leftNode);
     }
 
-    if (nodeToPrint !=NULL) {
+    if (nodeToPrint !=  NULL) {
         theTree->printFunction(nodeToPrint->binVPtr);
         printf("\n");
     }
@@ -134,6 +134,9 @@ BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFi
 
     return nodePtr;
 }
+
+
+
 
 
 

@@ -73,9 +73,14 @@ int equalsADT(void * ptrOne, void * ptrTwo) {
 void destroyADT(void * ptrToFree) {
     Sinfo * toDestroy = (Sinfo *) ptrToFree;
     
-    /*frees allocated memory in the ADT*/
+    /*frees allocated memory in the ADT, then set it to null*/
     free(toDestroy->name);
     free(toDestroy->studentNumber);
+    free(ptrToFree);
+
+    toDestroy->name = NULL;
+    toDestroy->studentNumber = NULL;
+    ptrToFree = NULL;
 }
 
 

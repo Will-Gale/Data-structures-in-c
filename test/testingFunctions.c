@@ -23,7 +23,7 @@
 void TEST_BinaryTree(FILE * inputStream);
 
 /* Stack */
-void testStack(FILE * inputStream);
+void TEST_Stack(FILE * inputStream);
 
 
 
@@ -45,8 +45,11 @@ int main(int argc, const char * argv[]) {
         printf("Error: File could not be open, now exiting. /n");
     } else {
         /* Regression testing */
-        TEST_BinaryTree(inputFile);
-        /*testStack(inputFile);*/
+        if (strcmp(argv[2], "1")) {
+            TEST_BinaryTree(inputFile);
+        }else if (strcmp(argv[2], "2")) {
+            TEST_Stack(inputFile);
+        }
     }
     
     return 0;
@@ -113,7 +116,7 @@ void TEST_BinaryTree(FILE * inputStream) {
 
 
 /* Simple function for testing the binary tree */
-void testStack(FILE * inputStream) {
+void TEST_Stack(FILE * inputStream) {
     char studentNameBuffer[50];
     Sinfo * testNode;
     void * vPtr;
