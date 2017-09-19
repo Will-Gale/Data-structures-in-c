@@ -23,6 +23,7 @@ typedef struct studentInfo
  ADT Functions
  *******************************/
 
+
 /*****
  comparison function used for sorting elements into the tree, returns the following values for the comparison...
  
@@ -34,11 +35,13 @@ typedef struct studentInfo
 
 int compareName(void * ptrOne, void * ptrTwo);
 
+
 /*****
  Allocates enough memory and fills the ADT variables with the desired input information. Because this function allocates enough memory to store all required information, pointers can be used without any more memory allocation.
  *****/
 
 Sinfo * createADT(const char * inputString);
+
 
 /*****
  This function frees all the memory the ADT requires. Use this function to free memory before freeing any pointer to the ADT that has not yet been freed.
@@ -48,11 +51,13 @@ Sinfo * createADT(const char * inputString);
 
 void destroyADT(void * ptrToFree);
 
+
 /*****
 This function determines if the ADTs are equivalent from void pointers
  *****/
 
 int equalsADT(void * ptrOne, void * ptrTwo);
+
 
 /*****
  This function simply prints the data stored in the ADT. In order for other functions to print the data, a print function that uses a void pointer is required.
@@ -61,6 +66,11 @@ int equalsADT(void * ptrOne, void * ptrTwo);
 void printADT(void * printPtr);
 
 
+/*****
+ This function returns a string of the ADT content. This function returns a pointer to allocated memory and must be freed.
+ *****/
+
+char * toString(void * adtPtr);
 
 
 

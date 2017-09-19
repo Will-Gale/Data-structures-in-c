@@ -69,7 +69,7 @@ int equalsADT(void * ptrOne, void * ptrTwo) {
 }
 
 
-/*frees the allocated memory in the ADT the void pointer points to*/
+/*frees the allocated memory in the ADT that the void pointer points to*/
 void destroyADT(void * ptrToFree) {
     Sinfo * toDestroy = (Sinfo *) ptrToFree;
     
@@ -79,7 +79,7 @@ void destroyADT(void * ptrToFree) {
 }
 
 
-/*print the information from void pointers*/
+/* Print the information from void pointers */
 void printADT(void * printPtr) {
     Sinfo * tempToPrint = (Sinfo *) printPtr;
     
@@ -87,4 +87,28 @@ void printADT(void * printPtr) {
     printf("%s,%s", tempToPrint->name, tempToPrint->studentNumber);
 }
 
+
+/* This function returns a string of the ADT content. This function returns a pointer to allocated memory and must be freed. */
+char * toString(void * adtPtr) {
+    char * toReturn;
+    int stringSize;
+    Sinfo * tempToString = (Sinfo *) adtPtr;
+
+    
+    if(tempToString != NULL) {
+        /* Allocate enough memory for the entire ADT */
+        stringSize = strlen(tempToString->name) + strlen(tempToString->studentNumber);
+        toReturn = malloc(sizeof(char) * stringSize);
+
+        /* Copy in the first string, concat a comma, then concat the last part*/
+        strcpy(toReturn, tempToString->name);
+        strcat(toReturn, ",");
+        strcat(toReturn, tempToString->studentNumber);
+        strcat(toReturn, "\0");
+    } else {
+        toReturn = NULL;
+    }
+    
+    return toReturn;
+}
 
