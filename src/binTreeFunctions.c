@@ -44,12 +44,17 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (
     return newBinaryTree;
 }
 
-/*Free memory allocated in a node in the tree*/
+
+/* Free memory allocated in a node in the tree */
 void destroyBinaryNode(BinTree * theTree, BinNode * nodeToFree) {
     theTree->destroyFunction(nodeToFree->binVPtr);
     
+    /* Frees memory allocated in the nodeToFree */
     free(nodeToFree->leftNode);
     free(nodeToFree->rightNode);
+
+    nodeToFree->leftNode = NULL;
+    nodeToFree->rightNode = NULL;
 }
 
 
@@ -65,7 +70,7 @@ void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode) {
         destroyBinaryTree(treeToFree, currentNode->rightNode);
     }
     
-    /*frees the memory of the node if both child nodes are NULL*/
+    /* Rrees the memory of the node if both child nodes are NULL, the sets the current node to null */
     destroyBinaryNode(treeToFree, currentNode);
     currentNode = NULL;
 }

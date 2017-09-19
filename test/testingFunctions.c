@@ -1,4 +1,9 @@
-
+/****************************************
+ Individual testing functions, reports any failed unit tests.
+ 
+ DevRows
+ September, 2017
+ ****************************************/
 
 
 /* Standard libraries */
@@ -16,7 +21,7 @@
 
 
 /******
- Function prototypes for testing the varrious data structures and how they can be used.
+ Function prototypes for testing the varrious data structures.
  ******/
 
 /* Binary Tree */
@@ -44,16 +49,20 @@ int main(int argc, const char * argv[]) {
         /* No file was found */
         printf("Error: File could not be open, now exiting. /n");
     } else {
+        printf("Test number = %s \n", argv[2]);
         /* Regression testing */
-        if (strcmp(argv[2], "1")) {
+        if (strcmp(argv[2], "0") == 0) {
             TEST_BinaryTree(inputFile);
-        }else if (strcmp(argv[2], "2")) {
+        } else if (strcmp(argv[2], "1") == 0) {
             TEST_Stack(inputFile);
         }
     }
     
     return 0;
 }
+
+
+
 
 /******
  Individual Testing functions
@@ -73,8 +82,6 @@ void TEST_BinaryTree(FILE * inputStream) {
     BinNode * searchResultsPtr;
     void * vPtrBin;
     void * vPtrAvl;
-    
-    printf("This function is being used to test and link the ADT and binary files together. \n");
     
     binaryTree = createBinaryTree(&compareName, &equalsADT, &destroyADT, &printADT);
     
