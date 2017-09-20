@@ -105,10 +105,8 @@ char * toString(void * adtPtr) {
         stringSize = strlen(tempToString->name) + strlen(tempToString->studentNumber);
         toReturn = malloc(sizeof(char) * stringSize);
 
-        /* Copy in the first string, concat a comma, then concat the last part*/
-        strcpy(toReturn, tempToString->name);
-        strcat(toReturn, ",");
-        strcat(toReturn, tempToString->studentNumber);
+        /* First string, a comma, second part, then concat null terminator */
+        sprintf(toReturn, "%s,%s", tempToString->name, tempToString->studentNumber);
         strcat(toReturn, "\0");
     } else {
         toReturn = NULL;
