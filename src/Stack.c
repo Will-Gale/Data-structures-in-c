@@ -14,9 +14,8 @@
  Constructor for initializing a stack.
 
  Complete, but not tested. I have malloced root before setting it to NULL other times. 
- I think this may create a litle bit of a memory leak though.
 ***/
-Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint)) {
+Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint), void (* writeFunction) (FILE * streamOut, void * dataToWrite), char * (* toStringFunction) (void * data)) {
     /* Allocate enough memory for a stack */
     Stack * stackPtr = malloc(sizeof(Stack));
     
@@ -28,8 +27,10 @@ Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) 
     
     /* Required function pointers */
     stackPtr->destroyNode = destroyFunction;
-    stackPtr->toString = printFunction;
-    
+    stackPtr->toString = toStringFunction;
+    stackPtr->print = printFunction;
+    stackPtr->write = writeFunction;
+
     return stackPtr;
 }
 
@@ -64,9 +65,8 @@ void pushFunction(Stack * theStack, void * dataToAdd) {
  Complete, but not tested
 ***/
 void popFunction(Stack * theStack) {
-	/*assert(theStack->root != NULL, "Error: Attempting to remove a node from an empty stack.");*/
-	/* If the stack is not empty */
-	if (theStack->root != NULL) {
+	/* If the stack is not empty or NULL */
+	if (theStack != NULL && theStack->root != NULL) {
 		/* Redefine the root node */
 		StackNode * temp = theStack->root;
 		theStack->root = theStack->root->next;
@@ -79,4 +79,35 @@ void popFunction(Stack * theStack) {
 		theStack->stackSize--;
 	} 
 }
+
+
+
+/***
+	Destroys the entire stack (frees the memory allocated for each individual node).
+
+	Also frees the memory allocated by the stack itself, and sets the pointer to NULL.
+***/
+
+void destroyStack(Stack * theStack) {
+	/* For a NULL stack/empty */
+	if (theStack == NULL || theStack->root == NULL) {
+		return;
+	}
+
+	while (theStack->root->next != NULL) {
+		StackNode * temp = theStack->root;
+		theStack->root = theStack->root->next;
+
+		theStack->destroyNode(temp->dataInNode);
+		free(temp);
+	}
+
+	theStack->destroyNode(theStack->root->dataInNode);
+	free(theStack->root);
+	theStack->root = NULL;
+
+	free(theStack);
+	theStack = NULL;
+}
+
 

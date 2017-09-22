@@ -15,7 +15,9 @@
 /* Struct definitions */
 typedef struct stackStruct {
     void (* destroyNode) (void * data);
-    void (* toString) (void * dataToPrint);
+    char * (* toString) (void * data);
+    void (* print) (void * dataToPrint);
+    void (* write) (FILE * streamOut, void * dataToWrite);
     void (* push) (struct stackStruct * theStack, void * data);
     void (* pop) (struct stackStruct * theStack);
     
@@ -48,7 +50,7 @@ typedef struct stackElement {
 
  Example Call: newStack(&destroyADT, &printADT);
  ***/
-Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint));
+Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint), void (* writeFunction) (FILE * streamOut, void * dataToWrite), char * (* toStringFunction) (void * data));
 
 
 /***

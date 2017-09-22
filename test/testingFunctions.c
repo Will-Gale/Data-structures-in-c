@@ -69,7 +69,7 @@ int main(int argc, const char * argv[]) {
         if (strcmp(argv[2], "0") == 0) {
             TEST_BinaryTree(inputFile);
         } else if (strcmp(argv[2], "1") == 0) {
-            /*TEST_Stack(inputFile);*/
+            TEST_Stack(inputFile);
         }
     }
     
@@ -294,7 +294,7 @@ void TEST_Stack(FILE * inputStream) {
     void * vPtr;
 
     /* Create stack */
-    Stack * testStack = newStack(&destroyADT, &printADT);
+    Stack * testStack = newStack(&destroyADT, &printADT, &writeADT, &toString);
 
     /* Fill Stack */
     while (fgets(studentNameBuffer, 100, inputStream) != NULL) {
@@ -303,14 +303,14 @@ void TEST_Stack(FILE * inputStream) {
         vPtr = testNode;
         printf("Now adding the following node,\n\t");
         testStack->push(testStack, vPtr);
-        testStack->toString(testStack->root->dataInNode);
+        testStack->print(testStack->root->dataInNode);
         printf("\n\t listSize = %d\n", testStack->stackSize);
     }
 
     /* Pop off all nodes and print each node that is removed*/
     while(testStack->root != NULL) {
         printf("Now removing and freeing the following node,\n\t");
-        testStack->toString(testStack->root->dataInNode);
+        testStack->print(testStack->root->dataInNode);
         testStack->pop(testStack);
         printf("\n\t listSize = %d\n", testStack->stackSize);
     }
