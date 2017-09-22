@@ -46,8 +46,6 @@ int binaryTreeSearchTest(BinTree * binaryTree);
 
 int binaryTreeSortTest(BinTree * binaryTree);
 
-int searchOrSomething();
-
 
 
 int main(int argc, const char * argv[]) {
@@ -268,7 +266,7 @@ void TEST_BinaryTree(FILE * inputStream) {
         binaryTree->root = addToBinaryTree(binaryTree, binaryTree->root, vPtrBin);
     }
     
-    
+
     /* Testing sort functionality */
     testResult = binaryTreeSortTest(binaryTree);
     printf("\t%s: Binary tree sort test (test set 1 of 3)\n", result[testResult]);
