@@ -60,11 +60,12 @@ int equalsADT(void * ptrOne, void * ptrTwo);
 
 
 /*****
- This function simply prints the data stored in the ADT. In order for other functions to print the data, a print function that uses a void pointer is required.
+ These functions simply print the data stored in the ADT. In order for other functions to print the data, a print function that uses a void pointer is required.
  *****/
 
 void printADT(void * printPtr);
 
+void writeADT(FILE * stream, void * printPtr);
 
 /*****
  This function returns a string of the ADT content. This function returns a pointer to allocated memory and must be freed.

@@ -25,8 +25,8 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
     return root;
 }
 
-/*Initializes the binary tree.*/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint)) {
+/* Initializes the binary tree */
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), char * (* toStringPtr) (void * dataToPrint)) {
     BinTree * newBinaryTree;
     
     /*allocate enough memory for a binary tree*/
@@ -37,7 +37,7 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (
     newBinaryTree->compareFunction = comparePtr;
     newBinaryTree->equalsFunction = equalsFunction;
     newBinaryTree->destroyFunction = destroyPtr;
-    newBinaryTree->printFunction = printPtr;
+    newBinaryTree->toString = toStringPtr;
     newBinaryTree->root = NULL;
     
     /*return the newly initialized binary tree*/
@@ -47,19 +47,27 @@ BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (
 
 /* Free memory allocated in a node in the tree */
 void destroyBinaryNode(BinTree * theTree, BinNode * nodeToFree) {
-    theTree->destroyFunction(nodeToFree->binVPtr);
-    
-    /* Frees memory allocated in the nodeToFree */
-    free(nodeToFree->leftNode);
-    free(nodeToFree->rightNode);
+    if(nodeToFree != NULL) {
+        theTree->destroyFunction(nodeToFree->binVPtr);
+        nodeToFree->binVPtr = NULL;
+        
+        /* Frees memory allocated in the nodeToFree */
+        free(nodeToFree->leftNode);
+        free(nodeToFree->rightNode);
 
-    nodeToFree->leftNode = NULL;
-    nodeToFree->rightNode = NULL;
+        nodeToFree->leftNode = NULL;
+        nodeToFree->rightNode = NULL;
+    }
 }
 
 
-/*Frees all memory allocated within the binary tree nodes from lowest valued to highest valued node*/
+/* Frees all memory allocated within the binary tree nodes from lowest valued to highest valued node */
 void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode) {
+    /*This if statement prevents seg faults when destroying an already empty tree*/
+    if(treeToFree == NULL || currentNode == NULL) { /* The root of the tree is NULL */
+        return;
+    }
+
     /*Traverse left*/
     if (currentNode->leftNode != NULL) {
         destroyBinaryTree(treeToFree, currentNode->leftNode);
@@ -70,12 +78,13 @@ void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode) {
         destroyBinaryTree(treeToFree, currentNode->rightNode);
     }
     
-    /* Rrees the memory of the node if both child nodes are NULL, the sets the current node to null */
+    /* Frees the memory of the node if both child nodes are NULL, the sets the current node to null */
+
     destroyBinaryNode(treeToFree, currentNode);
     currentNode = NULL;
 }
 
-/*Allocates enough memory and fills a new node*/
+/* Allocates enough memory and fills a new node */
 BinNode * insertNode(void * toAdd) {
     BinNode * newNode;
     
@@ -88,11 +97,12 @@ BinNode * insertNode(void * toAdd) {
     return newNode;
 }
 
-/*checks to see if the node is empty*/
+/* Checks to see if the node is empty */
 boolBin isNodeEmpty(BinNode * root) {
+
     if (root == NULL) {
         return true;
-    } else if (root != NULL) {
+    } else if (root != NULL && root->binVPtr != NULL) {
         return false;
     } else {
         printf("Error: An error occured while checking if a node was empty, making an assumption that node is empty. Data may be lost. \n");
@@ -100,25 +110,33 @@ boolBin isNodeEmpty(BinNode * root) {
     }
 }
 
-/*Prints the list of nodes in the tree in order*/
+/* Prints the list of nodes in the tree in order */
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
+    /* Wrapper function to call write in order to print to command line */
+    writeInOrder(theTree, nodeToPrint, stdout);
+}
+
+void writeInOrder(BinTree * theTree, BinNode * nodeToPrint, FILE * stream) {
     if (nodeToPrint->leftNode != NULL) {
-        printInOrder(theTree, nodeToPrint->leftNode);
+        writeInOrder(theTree, nodeToPrint->leftNode, stream);
     }
 
     if (nodeToPrint !=  NULL) {
-        theTree->printFunction(nodeToPrint->binVPtr);
-        printf("\n");
+        fprintf(stream, "%s\n", theTree->toString(nodeToPrint->binVPtr));
     }
     
     if (nodeToPrint->rightNode != NULL) {
-        printInOrder(theTree, nodeToPrint->rightNode);
+        writeInOrder(theTree, nodeToPrint->rightNode, stream);
     }
 }
 
-/*Searches the tree and returns a matching node if found, if not found, returns null*/
+/* Searches the tree and returns a matching node if found, if not found, returns null */
 BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFind) {
     BinNode * nodePtr = NULL;
+
+    if (ptrToFind == NULL) {
+        return NULL;
+    }
 
     if (isNodeEmpty(nodeInTree) == false) {
         if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) == 0) {
@@ -129,9 +147,9 @@ BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFi
         }
 
         if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) >= 0) {
-            nodePtr = searchBinTree(toSearch, nodeInTree->rightNode, ptrToFind); /*Traverse right*/
+            nodePtr = searchBinTree(toSearch, nodeInTree->rightNode, ptrToFind); /* Traverse right */
         } else if (toSearch->compareFunction(ptrToFind, nodeInTree->binVPtr) < 0) {
-            nodePtr = searchBinTree(toSearch, nodeInTree->leftNode, ptrToFind); /*Traverse left*/
+            nodePtr = searchBinTree(toSearch, nodeInTree->leftNode, ptrToFind); /* Traverse left */
         }
     } else {
         nodePtr = nodeInTree;

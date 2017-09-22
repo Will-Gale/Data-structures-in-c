@@ -12,7 +12,7 @@
  *******************************/
 
 
-/*Nanme comparison using a void pointer*/
+/*Name comparison using a void pointer*/
 int compareName(void * ptrOne, void * ptrTwo) {
     int nameComparison;
     Sinfo * comparisonOne = (Sinfo *) ptrOne;
@@ -28,9 +28,15 @@ int compareName(void * ptrOne, void * ptrTwo) {
 /*Initializes an ADT that will be added to the tree */
 Sinfo * createADT(const char * inputString) {
     char * cPtr;
-    Sinfo * newStruct = malloc(sizeof(Sinfo));
+    Sinfo * newStruct;
+
+    /* Do not allocate memory for a NULL object*/
+    if(inputString == NULL) {
+        return NULL;
+    }
     
-    /*Allocates enough memory to store a string of the student name without the number and a string to store the student number*/
+    /*Allocates memory to store a string of the student name without the number and a string to store the student number*/
+    newStruct = malloc(sizeof(Sinfo));
     newStruct->name = malloc(sizeof(char)*(strlen(inputString)-6));
     newStruct->studentNumber = malloc(sizeof(char)*7);
     
@@ -72,24 +78,33 @@ int equalsADT(void * ptrOne, void * ptrTwo) {
 /*frees the allocated memory in the ADT that the void pointer points to*/
 void destroyADT(void * ptrToFree) {
     Sinfo * toDestroy = (Sinfo *) ptrToFree;
-    
-    /*frees allocated memory in the ADT, then set it to null*/
-    free(toDestroy->name);
-    free(toDestroy->studentNumber);
-    free(ptrToFree);
 
-    toDestroy->name = NULL;
-    toDestroy->studentNumber = NULL;
-    ptrToFree = NULL;
+    if(toDestroy != NULL) {
+        /*frees allocated memory in the ADT, then set it to null*/
+        free(toDestroy->name);
+        free(toDestroy->studentNumber);
+        free(ptrToFree);
+
+        toDestroy->name = NULL;
+        toDestroy->studentNumber = NULL;
+        ptrToFree = NULL;
+    }
+}
+
+
+/* Print the information from void pointers, wrapper function for writeADT(stdout, printPtr) */
+void printADT(void * printPtr) {
+
+    writeADT(stdout, printPtr);
 }
 
 
 /* Print the information from void pointers */
-void printADT(void * printPtr) {
+void writeADT(FILE * stream, void * printPtr) {
     Sinfo * tempToPrint = (Sinfo *) printPtr;
     
     /*print out the data stored in the Rinfo ADT elementToPrint*/
-    printf("%s,%s", tempToPrint->name, tempToPrint->studentNumber);
+    fprintf(stream, "%s,%s", tempToPrint->name, tempToPrint->studentNumber);
 }
 
 

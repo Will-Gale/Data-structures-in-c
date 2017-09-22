@@ -37,7 +37,6 @@ int main(int argc, const char * argv[]) {
 
         /* Runs an individual test functions from another file with this command */
         system(runCommand);
-
     }
 
     /* Frees the allocated memory from the string used to run the individual test programs */

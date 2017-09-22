@@ -25,7 +25,7 @@ struct binaryTree {
     int (*compareFunction) (void * data1, void * data2);
     int (*equalsFunction) (void * data1, void * data2);
     void (* destroyFunction) (void * data);
-    void (* printFunction) (void * dataToPrint);
+    char * (* toString) (void * dataToString);
     BinNode * root;
 };
 
@@ -58,7 +58,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
  
  Example call: createBinaryTree(&compareFunction, &destroyFunction, &printFunction);
 ****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), void (* printPtr) (void * dataToPrint));
+BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), char * (* toStringPtr) (void * dataToPrint));
 
 
 /****************************************
@@ -135,3 +135,5 @@ boolBin isNodeEmpty(BinNode * root);
  ****************************************/
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint);
  
+void writeInOrder(BinTree * theTree, BinNode * nodeToPrint, FILE * stream);
+
