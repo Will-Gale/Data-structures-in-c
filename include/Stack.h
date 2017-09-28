@@ -12,24 +12,29 @@
 #include <stdlib.h>
 
 
+/* Typedefs for the structures used by the Stack.c library */
+typedef struct stackStruct Stack;
+typedef struct stackElement StackNode;
+
+
 /* Struct definitions */
-typedef struct stackStruct {
-    void (* destroyNode) (void * data);
+struct stackStruct {
+    void (* destroyADT) (void * data);
     char * (* toString) (void * data);
     void (* print) (void * dataToPrint);
     void (* write) (FILE * streamOut, void * dataToWrite);
     void (* push) (struct stackStruct * theStack, void * data);
     void (* pop) (struct stackStruct * theStack);
+    void (* destroy) (Stack **);
     
     int stackSize;
     struct stackElement * root;
-}Stack;
+};
 
-/* Required ADTs to implement an AVLTree with void pointers */
-typedef struct stackElement {
+struct stackElement {
     void * dataInNode;
     struct stackElement * next;
-}StackNode;
+};
 
 
 /******
@@ -48,8 +53,9 @@ typedef struct stackElement {
 
  The user must free this memory, a pointer to allocated memory for a stack is returned.
 
- Example Call: newStack(&destroyADT, &printADT);
+ Example Call: newStack(&destroyADT, &printADT, &writeToFileFunction, &adtToStringFunction);
  ***/
+
 Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint), void (* writeFunction) (FILE * streamOut, void * dataToWrite), char * (* toStringFunction) (void * data));
 
 
@@ -64,6 +70,7 @@ Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) 
 
  Example Call: theStack->push(theStack, vPtrToAdd);
  ***/
+
 void pushFunction(Stack * theStack, void * dataToAdd);
 
 
@@ -80,4 +87,17 @@ void pushFunction(Stack * theStack, void * dataToAdd);
 
  Example Call: theStack->pop(theStack);
  ***/
+
 void popFunction(Stack * theStack);
+
+
+/***
+ Frees all memory allocated within the stack. Sequentially pops off all nodes freeing their data 
+ 	individually until the stack is empty. Requires a pointer to the stack to free itself as well.
+
+ Return: No return value.
+
+ Example Call: theStack->destroy(&theStack);
+***/
+
+void destroyStack(Stack ** stackPtr); 

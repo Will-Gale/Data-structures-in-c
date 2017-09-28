@@ -269,7 +269,6 @@ int stackLengthTest(Stack * theStack) {
     }
 }
 
-
 /* Writes then pops all individual nodes from the stack */
 int stackSortTest(Stack * theStack) {
     FILE * sortFile;
@@ -375,24 +374,20 @@ void TEST_Stack(FILE * inputStream) {
     testResult = stackLengthTest(testStack);
     printf("\t%s: Stack length test (test set 2 of 3)\n", result[testResult]);
 
-    /* 3 = Pop off empty stack test
-    - Attempting to remove nodes from an empty stack */
-    while(testStack->root != NULL) {
-        testStack->pop(testStack);
-    }
-
-    testStack->pop(testStack);
-    testStack->pop(testStack);
-
-    if(testStack->root == NULL) {
+    /* 3 = Pop off empty stack and NULL element test*/
+    testStack->destroy(&testStack);
+    
+    destroyStack(&testStack);
+    popFunction(testStack);
+    popFunction(NULL);
+    
+    if(testStack == NULL) {
         testResult = 1;
     } else {
         testResult = 0;
     }
 
     printf("\t%s: Empty stack pop test (test set 3 of 3)\n", result[testResult]);
-
-    free(testStack);
 }
 
 

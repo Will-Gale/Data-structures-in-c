@@ -10,10 +10,11 @@
 #include "Stack.h"
 
 
+
 /***
  Constructor for initializing a stack.
 
- Complete, but not tested. I have malloced root before setting it to NULL other times. 
+ After passing function pointers, the stack is initialized by allocating memory for a stack and setting all unknown variables to NULL.
 ***/
 Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint), void (* writeFunction) (FILE * streamOut, void * dataToWrite), char * (* toStringFunction) (void * data)) {
     /* Allocate enough memory for a stack */
@@ -24,9 +25,10 @@ Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) 
     stackPtr->root = NULL;
     stackPtr->push = &pushFunction;
     stackPtr->pop = &popFunction;
+    stackPtr->destroy = &destroyStack;
     
     /* Required function pointers */
-    stackPtr->destroyNode = destroyFunction;
+    stackPtr->destroyADT = destroyFunction;
     stackPtr->toString = toStringFunction;
     stackPtr->print = printFunction;
     stackPtr->write = writeFunction;
@@ -36,11 +38,19 @@ Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) 
 
 
 /***
- Pushes a node into the front of the stack.
+ Pushes a node into the front of the stack, memory is allocated for a single node.
 ***/
 void pushFunction(Stack * theStack, void * dataToAdd) {
 	/* Allocate memory for a new node to add to the stack. */
-	StackNode * newNode = malloc(sizeof(StackNode));
+	StackNode * newNode;
+
+	/* Do not allow the addition of NULL elements */
+	if(dataToAdd == NULL) {
+		return;
+	}
+
+	/* Allocate required memory after confirming the data to add is not NULL */
+	newNode = malloc(sizeof(StackNode));
 	newNode->dataInNode = dataToAdd;
 	newNode->next = NULL;
 
@@ -60,9 +70,7 @@ void pushFunction(Stack * theStack, void * dataToAdd) {
 
 
 /***
- Pops a node off of the top of the stack.
-
- Complete, but not tested
+ Pops a node off of the top of the stack, no pointer is returned and memory from the node is freed.
 ***/
 void popFunction(Stack * theStack) {
 	/* If the stack is not empty or NULL */
@@ -72,8 +80,11 @@ void popFunction(Stack * theStack) {
 		theStack->root = theStack->root->next;
 
 		/* destroy the node pointer and then free the node itself*/
-		theStack->destroyNode(temp->dataInNode);
+		theStack->destroyADT(temp->dataInNode);
+		temp->dataInNode = NULL;
+
 		free(temp);
+		temp = NULL;
 
 		/* Subtract one off of the node size*/
 		theStack->stackSize--;
@@ -88,26 +99,20 @@ void popFunction(Stack * theStack) {
 	Also frees the memory allocated by the stack itself, and sets the pointer to NULL.
 ***/
 
-void destroyStack(Stack * theStack) {
-	/* For a NULL stack/empty */
-	if (theStack == NULL || theStack->root == NULL) {
+void destroyStack(Stack ** stackPtr) {
+	Stack * theStack = *stackPtr;
+
+	/* For a NULL/empty stack */
+	if (theStack == NULL) {
 		return;
 	}
 
-	while (theStack->root->next != NULL) {
-		StackNode * temp = theStack->root;
-		theStack->root = theStack->root->next;
-
-		theStack->destroyNode(temp->dataInNode);
-		free(temp);
+	while (theStack->root != NULL) {
+		theStack->pop(theStack);
 	}
 
-	theStack->destroyNode(theStack->root->dataInNode);
-	free(theStack->root);
-	theStack->root = NULL;
-
-	free(theStack);
-	theStack = NULL;
+	free(*stackPtr);
+	*stackPtr = NULL;
 }
 
 
