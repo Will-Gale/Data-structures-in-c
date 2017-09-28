@@ -25,8 +25,9 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd) {
     return root;
 }
 
+
 /* Initializes the binary tree */
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), char * (* toStringPtr) (void * dataToPrint)) {
+BinTree * createBinaryTree(int (*comparePtr) (void *, void *), int (*equalsFunction) (void *, void *), void (* destroyPtr) (void *), char * (* toStringPtr) (void *)) {
     BinTree * newBinaryTree;
     
     /*allocate enough memory for a binary tree*/
@@ -84,6 +85,7 @@ void destroyBinaryTree(BinTree * treeToFree, BinNode * currentNode) {
     currentNode = NULL;
 }
 
+
 /* Allocates enough memory and fills a new node */
 BinNode * insertNode(void * toAdd) {
     BinNode * newNode;
@@ -96,6 +98,7 @@ BinNode * insertNode(void * toAdd) {
     
     return newNode;
 }
+
 
 /* Checks to see if the node is empty */
 boolBin isNodeEmpty(BinNode * root) {
@@ -110,11 +113,13 @@ boolBin isNodeEmpty(BinNode * root) {
     }
 }
 
+
 /* Prints the list of nodes in the tree in order */
 void printInOrder(BinTree * theTree, BinNode * nodeToPrint) {
     /* Wrapper function to call write in order to print to command line */
     writeInOrder(theTree, nodeToPrint, stdout);
 }
+
 
 void writeInOrder(BinTree * theTree, BinNode * nodeToPrint, FILE * stream) {
     if (nodeToPrint->leftNode != NULL) {
@@ -129,6 +134,7 @@ void writeInOrder(BinTree * theTree, BinNode * nodeToPrint, FILE * stream) {
         writeInOrder(theTree, nodeToPrint->rightNode, stream);
     }
 }
+
 
 /* Searches the tree and returns a matching node if found, if not found, returns null */
 BinNode * searchBinTree(BinTree * toSearch, BinNode * nodeInTree, void * ptrToFind) {

@@ -33,7 +33,7 @@ int main(int argc, const char * argv[]) {
         strcat(runCommand, "\0");
 
         /* Print a statement notifying the user which test is currently running */
-        fprintf(stdout, "***\n\tNow using the supplied ADT to to test: %s\n***\n", test[testNum]);
+        fprintf(stdout, "***\n\tTesting Suite %d: Now using the supplied ADT to to test: %s\n***\n", testNum, test[testNum]);
 
         /* Runs an individual test functions from another file with this command */
         system(runCommand);

@@ -22,10 +22,10 @@ typedef struct binaryElement BinNode;
 
 /*data type to create the Binary tree*/
 struct binaryTree {
-    int (*compareFunction) (void * data1, void * data2);
-    int (*equalsFunction) (void * data1, void * data2);
-    void (* destroyFunction) (void * data);
-    char * (* toString) (void * dataToString);
+    int (*compareFunction) (void *, void *);
+    int (*equalsFunction) (void *, void *);
+    void (* destroyFunction) (void *);
+    char * (* toString) (void *);
     BinNode * root;
 };
 
@@ -58,7 +58,7 @@ BinNode * addToBinaryTree(BinTree * theTree, BinNode * root, void * dataToAdd);
  
  Example call: createBinaryTree(&compareFunction, &destroyFunction, &printFunction);
 ****************************************/
-BinTree * createBinaryTree(int (*comparePtr) (void * data1, void * data2), int (*equalsFunction) (void * data1, void * data2), void (* destroyPtr) (void * data), char * (* toStringPtr) (void * dataToPrint));
+BinTree * createBinaryTree(int (*comparePtr) (void *, void *), int (*equalsFunction) (void *, void *), void (* destroyPtr) (void *), char * (* toStringPtr) (void *));
 
 
 /****************************************

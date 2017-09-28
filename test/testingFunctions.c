@@ -70,8 +70,6 @@ int main(int argc, const char * argv[]) {
         /* No file was found */
         printf("Error: File could not be open, now exiting. /n");
     } else {
-        printf("Testing suite = %s \n", argv[2]);
-
         /* Regression testing */
         if (strcmp(argv[2], "0") == 0) {
             TEST_BinaryTree(inputFile);
@@ -344,7 +342,7 @@ void TEST_BinaryTree(FILE * inputStream) {
     destroyBinaryTree(binaryTree, NULL);
     destroyBinaryTree(binaryTree, binaryTree->root);
     destroyBinaryTree(binaryTree, NULL);
-    printf("\t%s: Binary tree double destroy test (test set 3 of 3)\n", result[testResult]);
+    printf("\t%s: Binary tree double destroy test (test set 3 of 3)\n\n", result[testResult]);
 }
 
 
@@ -387,7 +385,7 @@ void TEST_Stack(FILE * inputStream) {
         testResult = 0;
     }
 
-    printf("\t%s: Empty stack pop test (test set 3 of 3)\n", result[testResult]);
+    printf("\t%s: Empty stack pop test (test set 3 of 3)\n\n", result[testResult]);
 }
 
 

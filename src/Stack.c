@@ -16,7 +16,7 @@
 
  After passing function pointers, the stack is initialized by allocating memory for a stack and setting all unknown variables to NULL.
 ***/
-Stack * newStack(void (* destroyFunction) (void * data), void (* printFunction) (void * dataToPrint), void (* writeFunction) (FILE * streamOut, void * dataToWrite), char * (* toStringFunction) (void * data)) {
+Stack * newStack(void (* destroyFunction) (void *), void (* printFunction) (void *), void (* writeFunction) (FILE *, void *), char * (* toStringFunction) (void *)) {
     /* Allocate enough memory for a stack */
     Stack * stackPtr = malloc(sizeof(Stack));
     
