@@ -35,22 +35,27 @@ Sinfo * createADT(const char * inputString) {
         return NULL;
     }
     
-    /*Allocates memory to store a string of the student name without the number and a string to store the student number*/
+    /* Allocates memory to store a string of the student name without the number and a string to store the student number */
     newStruct = malloc(sizeof(Sinfo));
-    newStruct->name = malloc(sizeof(char)*(strlen(inputString)-6));
-    newStruct->studentNumber = malloc(sizeof(char)*7);
     
     /*Parse the string before the comma to copy it to the ADT name*/
     cPtr = malloc(sizeof(char)*strlen(inputString)+1);
     strcpy(cPtr, inputString);
     cPtr = strtok(cPtr, ",");
-    strcpy(newStruct->name, cPtr);
     
-    /*Copies the rest of the string (student number) to the ADT student number*/
+    /* Fill studentName*/
+    newStruct->name = malloc(sizeof(char)*(strlen(cPtr)+1));
+    strcpy(newStruct->name, cPtr);
+    strcat(newStruct->name, "\0");
+    
+    /* Copies the rest of the string (student number) to the ADT member studentNumber */
     cPtr = strtok(NULL, ",");
+
+    /* Student number must be 6 characters long */
+    newStruct->studentNumber = malloc(sizeof(char)*7);
     strcpy(newStruct->studentNumber, cPtr);
     
-    /*Gets rid of the new line at the end of the string*/
+    /* Null terminator: Gets rid of the new line at the end of the string */
     if (newStruct->studentNumber[strlen(newStruct->studentNumber)-1] == '\n') {
         newStruct->studentNumber[strlen(newStruct->studentNumber)-1] = '\0';
     }
