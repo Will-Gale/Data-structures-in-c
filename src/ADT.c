@@ -92,23 +92,30 @@ void destroyADT(void * ptrToFree) {
 }
 
 
-/* Print the information from void pointers, wrapper function for writeADT(stdout, printPtr) */
+/* Print the information from void pointers, wrapper function for writeADT(stdout, printPtr) 
+WARNING: This function writes the new line character at the end of the actual string. 
+
+If only a string of the stored data is required, call the toString() function. */
 void printADT(void * printPtr) {
 
     writeADT(stdout, printPtr);
 }
 
 
-/* Print the information from void pointers */
+/* Print the information from void pointers, 
+WARNING: This function writes the new line character at the end of the actual string. 
+
+If only a string of the stored data is required, call the toString() function. */
 void writeADT(FILE * stream, void * printPtr) {
     Sinfo * tempToPrint = (Sinfo *) printPtr;
     
     /*print out the data stored in the Rinfo ADT elementToPrint*/
-    fprintf(stream, "%s,%s", tempToPrint->name, tempToPrint->studentNumber);
+    fprintf(stream, "%s,%s\n", tempToPrint->name, tempToPrint->studentNumber);
 }
 
 
-/* This function returns a string of the ADT content. This function returns a pointer to allocated memory and must be freed. */
+/* This function returns a string of the ADT content. 
+WARNING: This function returns allocated memory and must be freed. */
 char * toString(void * adtPtr) {
     char * toReturn;
     int stringSize;

@@ -40,11 +40,18 @@ void TEST_Stack(FILE * inputStream);
 
 int compareFile(char * fileNameOne, char * fileNameTwo);
 
-/*void writeFile(void * dataToWrite, char * fileName);*/
-
+/* Binary Tree */
 int binaryTreeSearchTest(BinTree * binaryTree);
 
 int binaryTreeSortTest(BinTree * binaryTree);
+
+/* Stack */
+void stackFill(FILE * stream, Stack * stackToFill, int toPopOff);
+
+int stackSortTest(Stack * theStack);
+
+int stackLengthTest(Stack * theStack);
+
 
 
 
@@ -223,16 +230,73 @@ int binaryTreeSearchTest(BinTree * binaryTree) {
 }
 
 
+/* Writes the nodes in a binary tree to a file in order */
 int binaryTreeSortTest(BinTree * binaryTree) {
     FILE * sortFile;
 
-    /* Opens a stream and prints writes to the file */
+    /* Opens a stream to file and removes content then writes to the file */
     sortFile = fopen("test/sortTest.txt", "w");
     writeInOrder(binaryTree, binaryTree->root, sortFile);
 
     fclose(sortFile);
 
     return compareFile("test/sortTest.txt", "test/inOrder.txt");
+}
+
+void stackFill(FILE * stream, Stack * stackToFill, int toPopOff) {
+    char studentNameBuffer[100];
+    int currentNumber = 0;
+    Sinfo * testNode;
+    void *vPtr;
+
+    while (fgets(studentNameBuffer, 100, stream) != NULL) {
+
+        if(toPopOff != 0 && currentNumber%toPopOff) {
+            testNode = createADT(studentNameBuffer);
+
+            vPtr = testNode;
+            stackToFill->push(stackToFill, vPtr);
+        }
+        currentNumber++;
+    }
+}
+
+int stackLengthTest(Stack * theStack) {
+    if(theStack->stackSize == 15) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+/* Writes then pops all individual nodes from the stack */
+int stackSortTest(Stack * theStack) {
+    FILE * sortFile;
+
+    /* Opens a stream to file and removes content then writes to the file */
+    sortFile = fopen("test/sortTest.txt", "w");
+
+    while(theStack->root != NULL) {
+        char * temp;
+
+        printf("Now removing and freeing the following node,\n\t");
+        theStack->print(theStack->root->dataInNode);
+        temp = theStack->toString(theStack->root->dataInNode);
+        /*fprintf(sortFile, "%s\n", temp);*/
+
+
+        /*fprintf(stream, "%s\n", theTree->toString(nodeToPrint->binVPtr));*/
+
+        theStack->write(sortFile, theStack->root->dataInNode);
+        theStack->pop(theStack);
+        /*printf("\n\t listSize = %d\n", testStack->stackSize);*/
+
+        free(temp);
+    }
+
+    fclose(sortFile);
+    return compareFile("test/sortTest.txt", "test/reversePreOrder.txt");
 }
 
 
@@ -267,21 +331,21 @@ void TEST_BinaryTree(FILE * inputStream) {
     }
     
 
-    /* Testing sort functionality */
+    /* 1 = Testing sort functionality */
     testResult = binaryTreeSortTest(binaryTree);
     printf("\t%s: Binary tree sort test (test set 1 of 3)\n", result[testResult]);
 
 
-    /* Testing add NULL student */
+    /* 2 = Testing add NULL student */
     testResult = binaryTreeSearchTest(binaryTree);
-    printf("\t%s: Binary tree search test (test set 2 of 3)\n", result[testResult]);
+    printf("\t%s: Binary tree search unit tests (test set 2 of 3)\n", result[testResult]);
 
 
-    /* Testing free memory allocation functionality */
+    /* 3 = Testing free memory allocation functionality */
     destroyBinaryTree(binaryTree, NULL);
     destroyBinaryTree(binaryTree, binaryTree->root);
     destroyBinaryTree(binaryTree, NULL);
-    printf("\t%s: Double destroy binary tree (test set 3 of 3)\n", result[testResult]);
+    printf("\t%s: Binary tree double destroy test (test set 3 of 3)\n", result[testResult]);
 }
 
 
@@ -289,33 +353,44 @@ void TEST_BinaryTree(FILE * inputStream) {
 
 /* Simple function for testing the binary tree */
 void TEST_Stack(FILE * inputStream) {
-    char studentNameBuffer[100];
-    Sinfo * testNode;
-    void * vPtr;
+    const char * result[2];
+    int testResult;
+    Stack * testStack;
 
-    /* Create stack */
-    Stack * testStack = newStack(&destroyADT, &printADT, &writeADT, &toString);
+    /* Results array */
+    result[0] = "FAILED";
+    result[1] = "PASSED";
 
-    /* Fill Stack */
-    while (fgets(studentNameBuffer, 100, inputStream) != NULL) {
-        testNode = createADT(studentNameBuffer);
+    /* Allocates/initializes for a stack */
+    testStack = newStack(&destroyADT, &printADT, &writeADT, &toString);
 
-        vPtr = testNode;
-        printf("Now adding the following node,\n\t");
-        testStack->push(testStack, vPtr);
-        testStack->print(testStack->root->dataInNode);
-        printf("\n\t listSize = %d\n", testStack->stackSize);
-    }
+    /* 1 = Stack sort test */
+    stackFill(inputStream, testStack, 0);
+    testResult = stackSortTest(testStack);
+    printf("\t%s: Stack sort and pop test (test set 1 of 3)\n", result[testResult]);
 
-    /* Pop off all nodes and print each node that is removed*/
+    /* 2 = Stack length test */
+    fseek(inputStream, 0, SEEK_SET);
+    stackFill(inputStream, testStack, 5);
+    testResult = stackLengthTest(testStack);
+    printf("\t%s: Stack length test (test set 2 of 3)\n", result[testResult]);
+
+    /* 3 = Pop off empty stack test
+    - Attempting to remove nodes from an empty stack */
     while(testStack->root != NULL) {
-        printf("Now removing and freeing the following node,\n\t");
-        testStack->print(testStack->root->dataInNode);
         testStack->pop(testStack);
-        printf("\n\t listSize = %d\n", testStack->stackSize);
     }
-    
-    testStack->pop(testStack); /* Attempting to remove a node from an empty stack */
+
+    testStack->pop(testStack);
+    testStack->pop(testStack);
+
+    if(testStack->root == NULL) {
+        testResult = 1;
+    } else {
+        testResult = 0;
+    }
+
+    printf("\t%s: Empty stack pop test (test set 3 of 3)\n", result[testResult]);
 
     free(testStack);
 }
