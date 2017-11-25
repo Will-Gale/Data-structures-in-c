@@ -1,4 +1,4 @@
-CFLAGS = -std=c11 -Wall -pedantic -ansi -g -Iinclude -c
+CFLAGS = -std=c11 -Wall -pedantic -g -Iinclude -c
 testBin = test/testExecutables
 
 all:

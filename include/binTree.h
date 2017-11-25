@@ -8,9 +8,12 @@ ADT Binary tree user interface
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "cEnvironment.h"
+
+
 /*Created boolean data type*/
-typedef int boolBin;
-enum {false, true};
+typedef boolean boolBin;
+
 
 /*************************************
  Required variables for Binary Tree

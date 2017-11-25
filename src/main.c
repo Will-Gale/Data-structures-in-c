@@ -5,15 +5,23 @@ Main function, uses the data structures
  August, 2015
  ****************************************/
 
+
+/* Standard imports */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* Imported data types */
+
+/* Inherited by all */
+#include "cEnvironment.h"
+
+
+/* User-defined imported data types */
 #include "ADT.h"
 #include "avlTree.h"
 #include "binTree.h"
 #include "Stack.h"
+
 
 
 /* 

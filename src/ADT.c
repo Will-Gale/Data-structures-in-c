@@ -51,7 +51,7 @@ Sinfo * createADT(const char * inputString) {
     /* Copies the rest of the string (student number) to the ADT member studentNumber */
     cPtr = strtok(NULL, ",");
 
-    /* Student number must be 6 characters long */
+    /* Fill studentNumber (must 6 characters long) */
     newStruct->studentNumber = malloc(sizeof(char)*7);
     strcpy(newStruct->studentNumber, cPtr);
     
